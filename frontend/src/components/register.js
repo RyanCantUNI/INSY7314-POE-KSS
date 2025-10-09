@@ -27,8 +27,17 @@ function Register() {
             console.log('Registration response:', response.data);
             navigate('/login');
         } catch (error) {
-            alert('Registration failed. Please check your details.');
             console.error('Registration error:', error);
+            if (error.response) {
+                // Server responded with error
+                alert(`Registration failed: ${error.response.data.message || error.response.data}`);
+            } else if (error.request) {
+                // Request made but no response
+                alert('Cannot connect to server. Please ensure the backend is running on https://localhost:443');
+            } else {
+                // Other errors
+                alert('Registration failed. Please check your details.');
+            }
         }
     };
 

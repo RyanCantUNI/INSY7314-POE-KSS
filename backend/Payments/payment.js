@@ -40,10 +40,10 @@ import tokenChecker from "../DB/token.js";
     date
     user id
     //user input
-    source -- who is paying
     amount
-    payment method -- how are they paying
-    account number -- who is getting paid 
+    provider Account
+    currency 
+    SWIFT Code
 } */ 
 
 //post method 
@@ -64,10 +64,10 @@ makePayment.post('/payment',tokenChecker,async(req,res)=>
                 date: currentDate,
                 userID: userID,
                 
-                source: req.body.source,
                 amount: req.body.amount,
-                paymentMethod: req.body.paymentMethod,
-                accountNumber: req.body.accountNumber
+                providerAccount: req.body.providerAccount,
+                currency: req.body.currency,
+                SWIFTCode: req.body.SWIFTCode
             }
 
             //add to payments collection 

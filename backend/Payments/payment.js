@@ -50,7 +50,7 @@ makePayment.use(bodyParser.urlencoded({ extended: true }))
 makePayment.post('/payment', tokenChecker, async (req, res) => {
     try {
         //jwt token with our logged in UID
-
+        let toeknID  
 
         //SWIFT api call would go here
 
@@ -59,7 +59,7 @@ makePayment.post('/payment', tokenChecker, async (req, res) => {
         const paymentModule = {
             paymentID: UUID(),
             date: currentDate,
-            userID: userID,
+            userID: tokenID,
 
             amount: req.body.amount,
             providerAccount: req.body.providerAccount,

@@ -2,9 +2,9 @@ import express from "express";
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import { v4 as uuidv4 } from 'uuid';
-import {check, validationResult} from "express-validator";
+import { check, validationResult } from "express-validator";
 
-import {client} from "../DB/db.js";
+import { client } from "../DB/db.js";
 
 
 const router = express.Router();
@@ -24,59 +24,51 @@ router.post('/register', async (req, res) => {
 
 
     if (
-        !validateInput(nameRegex, fullName) ||
-        !validateInput(idRegex, idNumber) ||
-        !validateInput(accountRegex, accountNumber) ||
-        !validateInput(passwordRegex, password)
+        validateInput(nameRegex, fullName) ||
+        validateInput(idRegex, idNumber) ||
+        validateInput(accountRegex, accountNumber) ||
+        validateInput(passwordRegex, password)
     ) {
-        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
+        try {
+            //input validation
+
+
+            //check if user exists
+            let userExists = await users.findOne({ email });
+            if (userExists) {
+
+            }
+            else {
+                const UUID = uuidv4();
+                // Hash the password
+                const hashedPassword = await bcrypt.hash(password, 10);
+                const hashedIDnum = await bcrypt.hash(idNumber, 10);
+                const hashedAccNum = await bcrypt.hash(accountNumber, 10);
+
+                //make a user model
+
+                const userModel = {
+                    fullName: req.body.fullName,
+                    email: req.body.email,
+                    idNumber: hashedIDnum,
+                    accountNumber: hashedAccNum,
+                    password: hashedPassword,
+                    UUID,
+                };
+
+                await users.insertOne(userModel);
+
+                res.status(201).json({ message: 'User registered successfully' });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error registering user' });
+        }
     }
     else {
-
-        
-   
-    try {
-        //input validation
-        if(nameRegex)
-        {
-
-        }
-        else{
-            //check if user exists
-            let userExists = await users.findOne({email});
-            if(userExists)
-            {
-
-            }
-            else{
-                const UUID = uuidv4();
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const hashedIDnum = await bcrypt.hash(idNumber, 10);
-        const hashedAccNum = await bcrypt.hash(accountNumber, 10);
-        
-        //make a user model
-
-        const userModel = {
-            fullName : req.body.fullName,
-            email : req.body.email,
-            idNumber: hashedIDnum,
-            accountNumber : hashedAccNum,
-            password: hashedPassword,
-            UUID,
-        };
-
-        await users.insertOne(userModel);
-
-        res.status(201).json({ message: 'User registered successfully' });
-            }
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Error registering user' });
+        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
     }
-}   
 }
-
 );
 
 export default router;

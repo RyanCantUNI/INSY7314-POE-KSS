@@ -16,7 +16,7 @@ const users = [];
 
 // Registration endpoint
 router.post('/register', async (req, res) => {
-    const { fullName, email, idNumber, accountNumber, password, UUID } = req.body;
+    const { fullName, email, idNumber, accountNumber, password } = req.body;
 
     const nameRegex = /^[A-Za-z\s]{3,50}$/;
         const idRegex = /^[0-9]{6,13}$/;
@@ -50,4 +50,4 @@ router.post('/register', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

@@ -28,7 +28,10 @@ const getLogs = express()
 getLogs.get('/logs:id', tokenChecker, async (req, res) => {
     try {
         //get all payments containing our UID
-        const logs = await payments.find({ userID: userID }).toArray()
+        const id = req.params.id.replace(":", "")
+        console.log(id)
+        const logs = await payments.find({ userID: id}).toArray()
+        console.log(logs)
         res.status(200).send(logs)
     }
     catch (err) {

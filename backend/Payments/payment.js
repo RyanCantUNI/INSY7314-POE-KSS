@@ -50,14 +50,16 @@ makePayment.use(bodyParser.urlencoded({ extended: true }))
     SWIFT Code
 } */
 //post method 
-makePayment.post('/payment',tokenChecker,  async (req, res) => {
+makePayment.post('/payment:id',tokenChecker,  async (req, res) => {
     try {
+        const logedInUID = req.params.id.replace(":", "")
+        console.log(logedInUID)
         console.log(tokenChecker)
         //jwt token with our logged in UID
         //const tokenID  = req.cookies.token;
         //const payload = jwt.verify(tokenID, "User token");
         //const logedInUID = payload.UUID
-        const logedInUID = 'test token'
+        //const logedInUID = '173'
 
         //SWIFT api call would go here
 

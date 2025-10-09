@@ -16,7 +16,7 @@ const users = client.db("APDS").collection("users");
 // Registration endpoint
 router.post('/register', async (req, res) => {
     const { fullName, email, idNumber, accountNumber, password } = req.body;
-    // accountNumber standds for Bank account number
+    // accountNumber stands for Bank account number
     const nameRegex = "/^[A-Za-z\s]{3,50}$/";
     const idRegex = "/^[0-9]{6,13}$/";
     const accountRegex = "/^[0-9]{6,15}$/";

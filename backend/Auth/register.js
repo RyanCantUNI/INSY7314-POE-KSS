@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
-import UUID from "uuid/v4";
+import { v4 as uuidv4 } from 'uuid';
 import validate from "express-validator";
 
 const router = express.Router();
@@ -56,4 +56,4 @@ router.post('/register', async (req, res) => {
 }
 });
 
-module.exports = router;
+export default router;

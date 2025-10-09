@@ -50,6 +50,7 @@ makePayment.use(bodyParser.urlencoded({ extended: true }))
     SWIFT Code
 } */
 //post method 
+//this is UUID
 makePayment.post('/payment:id',tokenChecker,  async (req, res) => {
     try {
         const logedInUID = req.params.id.replace(":", "")

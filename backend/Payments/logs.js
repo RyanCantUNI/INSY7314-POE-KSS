@@ -24,6 +24,7 @@ let payments = users.collection("payments")
 
 const getLogs = express()
 
+//this id is also UID
 
 getLogs.get('/logs:id', tokenChecker, async (req, res) => {
     try {

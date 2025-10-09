@@ -12,7 +12,8 @@ import fs from "fs";
 
 //modules to go here
 import {connectToDatabase} from "./DB/db.js";
-
+import makePayment from "./Payments/payment.js"
+import getlogs from "./Payments/logs.js"
 
 //define server app
 const app  = express();
@@ -20,7 +21,9 @@ const app  = express();
 //setting server to use json parser
 app.use(express.json());
 
-//use modules here
+//user modules here
+app.use(makePayment);
+app.use(getlogs);
 
 //configure security 
 app.use(helmet());

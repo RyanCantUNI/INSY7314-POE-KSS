@@ -14,6 +14,8 @@ import fs from "fs";
 import {connectToDatabase} from "./DB/db.js";
 import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
+import login from "./Auth/login.js"
+import register from "./Auth/register.js"
 
 //define server app
 const app  = express();
@@ -24,6 +26,9 @@ app.use(express.json());
 //user modules here
 app.use(makePayment);
 app.use(getlogs);
+
+app.use(login);
+app.use(register);
 
 //configure security 
 app.use(helmet());

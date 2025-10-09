@@ -25,8 +25,17 @@ function Login() {
             // Navigate to dashboard or home page after successful login
             // navigate('/dashboard');
         } catch (error) {
-            alert('Login failed. Please check your credentials.');
             console.error('Login error:', error);
+            if (error.response) {
+                // Server responded with error
+                alert(`Login failed: ${error.response.data}`);
+            } else if (error.request) {
+                // Request made but no response
+                alert('Cannot connect to server. Please ensure the backend is running on https://localhost:443');
+            } else {
+                // Other errors
+                alert('Login failed. Please check your credentials.');
+            }
         }
     };
 

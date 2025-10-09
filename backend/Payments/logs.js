@@ -12,8 +12,11 @@ import { get } from "https";
 
 //useable variables for automation
 
-    //payments collection
-     let payments = users.collection("payments")
+     //users collection 
+    const users = client.db("users")
+
+    //payments collection 
+    let payments = users.collection("payments")
      //jwt token with our logged in UID
      const jwt = req.headers.authorization.split(' ')[1]
      const payload = jwt.verify(jwt,process.env.JWT_SECRET)

@@ -5,6 +5,9 @@ import express from "express";
 import bodyParser from "body-parser";
 //for creating untracable user ids
 import { v4 as uuidv4 } from 'uuid';
+import cookieParser from 'cookie-parser';
+import jwt from "jsonwebtoken";
+
 
 
 //db client 
@@ -15,7 +18,7 @@ import tokenChecker from "../DB/token.js";
 //useable variables for automation 
 
 //users collection 
-const users = client.db("users")
+const users = client.db("APDS")
 
 //payments collection 
 let payments = users.collection("payments")
@@ -27,6 +30,7 @@ const currentDate = date.toLocaleDateString()
 //setting up module 
 const makePayment = express()
 
+makePayment.use(cookieParser())
 //set up body parser 
 makePayment.use(bodyParser.json())
 makePayment.use(bodyParser.urlencoded({ extended: true }))
@@ -45,21 +49,24 @@ makePayment.use(bodyParser.urlencoded({ extended: true }))
     currency 
     SWIFT Code
 } */
-
 //post method 
-makePayment.post('/payment', tokenChecker, async (req, res) => {
+makePayment.post('/payment',tokenChecker,  async (req, res) => {
     try {
+        console.log(tokenChecker)
         //jwt token with our logged in UID
-        let toeknID  
+        //const tokenID  = req.cookies.token;
+        //const payload = jwt.verify(tokenID, "User token");
+        //const logedInUID = payload.UUID
+        const logedInUID = 'test token'
 
         //SWIFT api call would go here
 
         //if successful
         //create our db payment log
         const paymentModule = {
-            paymentID: UUID(),
+            paymentID: uuidv4(),
             date: currentDate,
-            userID: tokenID,
+            userID: logedInUID,
 
             amount: req.body.amount,
             providerAccount: req.body.providerAccount,

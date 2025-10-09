@@ -13,7 +13,7 @@ import { get } from "https";
 //useable variables for automation
 
 //users collection 
-const users = client.db("users")
+const users = client.db("APDS")
 
 //payments collection 
 let payments = users.collection("payments")

@@ -20,7 +20,7 @@ app.post("/login", async (req, res) => {
     try {
         const user = await collection.findOne({ email: email });
         if (!user) {
-            return res.status(401).send("User already exists.");
+            return res.status(401).send("Ensure name and password are correct.");
         }
         else{
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -28,6 +28,9 @@ app.post("/login", async (req, res) => {
             return res.status(401).send("Ensure name and password are correct.");
         }
         else {
+            //get UUID from db for token
+            const tokenID = user.UUID;
+            console.log(tokenID);
             const token = jwt.sign({ email: email }, "User token", { expiresIn: '2h' });
             res.status(200).send("Successfully logged in");
             console.log(token);

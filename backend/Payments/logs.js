@@ -25,7 +25,7 @@ let payments = users.collection("payments")
 const getLogs = express()
 
 
-getLogs.get('/logs', tokenChecker, async (req, res) => {
+getLogs.get('/logs:id', tokenChecker, async (req, res) => {
     try {
         //get all payments containing our UID
         const logs = await payments.find({ userID: userID }).toArray()

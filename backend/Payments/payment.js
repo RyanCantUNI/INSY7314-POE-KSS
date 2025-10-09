@@ -8,28 +8,28 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 //db client 
-import {client} from "../DB/db.js";  
+import { client } from "../DB/db.js";
 //token checker
 import tokenChecker from "../DB/token.js";
 
 //useable variables for automation 
 
-    //users collection 
-    const users = client.db("users")
+//users collection 
+const users = client.db("users")
 
-    //payments collection 
-    let payments = users.collection("payments")
+//payments collection 
+let payments = users.collection("payments")
 
-    //curent date for payment
-    const date = new Date();
-    const currentDate = date.toLocaleDateString()
+//curent date for payment
+const date = new Date();
+const currentDate = date.toLocaleDateString()
 
-    //setting up module 
-    const makePayment = express()
+//setting up module 
+const makePayment = express()
 
-    //set up body parser 
-    makePayment.use(bodyParser.json())
-    makePayment.use(bodyParser.urlencoded({extended: true}))
+//set up body parser 
+makePayment.use(bodyParser.json())
+makePayment.use(bodyParser.urlencoded({ extended: true }))
 
 
 //payment collection
@@ -44,43 +44,42 @@ import tokenChecker from "../DB/token.js";
     provider Account
     currency 
     SWIFT Code
-} */ 
+} */
 
 //post method 
-makePayment.post('/payment',tokenChecker,async(req,res)=>
-    {
-        try{
-            //jwt token with our logged in UID
-        
-
-            //SWIFT api call would go here
-
-            //if successful
-            //create our db payment log
-            const paymentModule = {
-                paymentID: UUID(),
-                date: currentDate,
-                userID: userID,
-                
-                amount: req.body.amount,
-                providerAccount: req.body.providerAccount,
-                currency: req.body.currency,
-                SWIFTCode: req.body.SWIFTCode
-            }
-
-            //add to payments collection 
-            await payments.insertOne(paymentModule)
-            res.status(200).send('Payment made')
-          
+makePayment.post('/payment', tokenChecker, async (req, res) => {
+    try {
+        //jwt token with our logged in UID
 
 
+        //SWIFT api call would go here
+
+        //if successful
+        //create our db payment log
+        const paymentModule = {
+            paymentID: UUID(),
+            date: currentDate,
+            userID: userID,
+
+            amount: req.body.amount,
+            providerAccount: req.body.providerAccount,
+            currency: req.body.currency,
+            SWIFTCode: req.body.SWIFTCode
         }
-        catch(err){
-            console.log('Error makeing payment',err)
-            res.status(500).send('Error makeing payment')
-        }
+
+        //add to payments collection 
+        await payments.insertOne(paymentModule)
+        res.status(200).send('Payment made')
+
+
 
     }
+    catch (err) {
+        console.log('Error makeing payment', err)
+        res.status(500).send('Error makeing payment')
+    }
+
+}
 
 )
 

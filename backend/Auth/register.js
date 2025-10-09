@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import { v4 as uuidv4 } from 'uuid';
-import { check, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 import { client } from "../DB/db.js";
 
@@ -11,8 +11,9 @@ const router = express.Router();
 router.use(express.json());
 
 function validateInput(regex, value) {
-  if (!regex.check(value)) {
-    throw new Error('Invalid input');
+    const isValid = regex.test(value);
+  if (isValid) {
+    true;
   }
 }
 
@@ -20,22 +21,34 @@ function validateInput(regex, value) {
 const users = client.db("APDS").collection("users");
 
 // Registration endpoint
-router.post('/register', async (req, res) => {
+router.post('/register',
+    [
+            //regex block here
+        body('fullName').isLength({ min: 3, max: 50 }),
+        body('email').isEmail(),
+        body('idNumber').isLength({ min: 6, max: 13 }),
+        body('accountNumber').isLength({ min: 6, max: 15 }),
+        body('password').isLength({ min: 8 }),
+    ] ,async (req, res) => {
     const { fullName, email, idNumber, accountNumber, password } = req.body;
+     const 
+     isValid = validationResult(req);
     // accountNumber stands for Bank account number
-    const nameRegex = "/^[A-Za-z\s]{3,50}$/";
-    const idRegex = "/^[0-9]{6,13}$/";
-    const accountRegex = "/^[0-9]{6,15}$/";
-    const passwordRegex = "/^[A-Za-z0-9!@#\$%\^&\*]{8,}$/";
+   // const nameRegex = "/^[A-Za-z\s]{3,50}$/";
+    //const idRegex = "/^[0-9]{6,13}$/";
+    //const accountRegex = "/^[0-9]{6,15}$/";
+    //const passwordRegex = "/^[A-Za-z0-9!@#\$%\^&\*]{8,}$/";
+  
 
 
-    if (
-        validateInput(nameRegex, fullName) ||
-        validateInput(idRegex, idNumber) ||
-        validateInput(accountRegex, accountNumber) ||
-        validateInput(passwordRegex, password)
+     if (
+         // validateInput(nameRegex, fullName) ||
+         // validateInput(idRegex, idNumber) ||
+         // validateInput(accountRegex, accountNumber) ||
+         // validateInput(passwordRegex, password)
 
-       
+
+       isValid
     ) {
         try {
             //input validation
@@ -73,10 +86,10 @@ router.post('/register', async (req, res) => {
             res.status(500).json({ message: 'Error registering user' });
         }
     }
-    else {
+     else {
          
-        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
-    }
+         return res.status(400).json({ message: 'Invalid input. Please check your details.' });
+     }
 }
 );
 

@@ -10,6 +10,12 @@ import { client } from "../DB/db.js";
 const router = express.Router();
 router.use(express.json());
 
+function validateInput(regex, value) {
+  if (!regex.check(value)) {
+    throw new Error('Invalid input');
+  }
+}
+
 //user collection in BD
 const users = client.db("APDS").collection("users");
 
@@ -28,6 +34,8 @@ router.post('/register', async (req, res) => {
         validateInput(idRegex, idNumber) ||
         validateInput(accountRegex, accountNumber) ||
         validateInput(passwordRegex, password)
+
+       
     ) {
         try {
             //input validation
@@ -66,6 +74,7 @@ router.post('/register', async (req, res) => {
         }
     }
     else {
+         
         return res.status(400).json({ message: 'Invalid input. Please check your details.' });
     }
 }

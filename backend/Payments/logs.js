@@ -41,3 +41,5 @@ getLogs.get('/logs',tokenChecker,async(req,res)=>
     }
 }
 )
+
+export default getLogs

@@ -4,7 +4,7 @@ const port = 443
 
 //plugins
 
-import https from "https";
+import http from "https";
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -27,9 +27,9 @@ app.use(helmet());
 app.use(cors());
 
 //configure server to use https
-const server = https.createServer(
+const server = http.createServer(
 {
-    key: fs.readFileSync("../key/key.pem"),
+    key: fs.readFileSync("../key/privatekey.pem"),
     cert: fs.readFileSync("../key/certificate.pem"),
 },
 app

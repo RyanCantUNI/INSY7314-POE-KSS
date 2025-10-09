@@ -24,17 +24,11 @@ router.post('/register', async (req, res) => {
 
 
     if (
-        !validateInput(nameRegex, fullName) ||
-        !validateInput(idRegex, idNumber) ||
-        !validateInput(accountRegex, accountNumber) ||
-        !validateInput(passwordRegex, password)
+        validateInput(nameRegex, fullName) ||
+        validateInput(idRegex, idNumber) ||
+        validateInput(accountRegex, accountNumber) ||
+        validateInput(passwordRegex, password)
     ) {
-        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
-    }
-    else {
-
-
-
         try {
             //input validation
 
@@ -67,12 +61,13 @@ router.post('/register', async (req, res) => {
                 res.status(201).json({ message: 'User registered successfully' });
             }
         }
-         catch (error) {
-        res.status(500).json({ message: 'Error registering user' });
+        catch (error) {
+            res.status(500).json({ message: 'Error registering user' });
         }
-
-}
-
+    }
+    else {
+        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
+    }
 }
 );
 

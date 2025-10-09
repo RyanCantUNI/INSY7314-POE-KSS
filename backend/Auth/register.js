@@ -4,11 +4,6 @@ import bodyParser from "body-parser";
 import UUID from "uuid/v4";
 import validate from "express-validator";
 
-const express = require('express');
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const UUID = require('uuid/v4');
-
 const router = express.Router();
 router.use(express.json());
 

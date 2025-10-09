@@ -11,7 +11,7 @@ import cors from "cors";
 import fs from "fs";
 
 //modules to go here
-import {connectToDatabase} from "./db.js";
+import {connectToDatabase} from "./DB/db.js";
 
 
 //define server app

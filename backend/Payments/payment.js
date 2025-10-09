@@ -4,11 +4,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 //for creating untracable user ids
-import UUID from "uuid/v4";
+import { v4 as uuidv4 } from 'uuid';
 
 
 //db client 
-import {connectionString} from "../DB/db.js";  
+import {client} from "../DB/db.js";  
 //token checker
 import tokenChecker from "../DB/token.js";
 
@@ -25,7 +25,7 @@ import tokenChecker from "../DB/token.js";
     const currentDate = date.toLocaleDateString()
 
     //setting up module 
-    const makePayment = epxress()
+    const makePayment = express()
 
     //set up body parser 
     makePayment.use(bodyParser.json())
@@ -51,9 +51,7 @@ makePayment.post('/payment',tokenChecker,async(req,res)=>
     {
         try{
             //jwt token with our logged in UID
-            const jwt = req.headers.authorization.split(' ')[1]
-            const payload = jwt.verify(jwt,process.env.JWT_SECRET)
-            const userID = payload.sub
+        
 
             //SWIFT api call would go here
 

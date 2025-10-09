@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import UUID from "uuid/v4";
+import validate from "express-validator";
 
 const express = require('express');
 const bcrypt = require('bcrypt');
@@ -11,17 +12,17 @@ const UUID = require('uuid/v4');
 const router = express.Router();
 router.use(express.json());
 
-// Mock database
-const users = [];
+
 
 // Registration endpoint
 router.post('/register', async (req, res) => {
     const { fullName, email, idNumber, accountNumber, password } = req.body;
 
-    const nameRegex = /^[A-Za-z\s]{3,50}$/;
+    const nameRegex = "/^[A-Za-z\s]{3,50}$/";
         const idRegex = /^[0-9]{6,13}$/;
         const accountRegex = /^[0-9]{6,15}$/;
         const passwordRegex = /^[A-Za-z0-9!@#\$%\^&\*]{8,}$/;
+
 
     if (
             !validateInput(nameRegex, fullName) ||
@@ -31,6 +32,7 @@ router.post('/register', async (req, res) => {
         ) {
             return res.status(400).json({ message: 'Invalid input. Please check your details.' });
         }
+    else{
 
     // Check if user already exists
     const userExists = users.find(user => user.UUID === targetUuid);
@@ -41,13 +43,22 @@ router.post('/register', async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Save the user
-        users.push({ username, password: hashedPassword });
+        //make a user model
+
+        const user = {
+            fullName,
+            email,
+            idNumber,
+            accountNumber,
+            password: hashedPassword,
+            UUID,
+        };
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error registering user' });
     }
     }
+}
 });
 
-export default router;
+module.exports = router;

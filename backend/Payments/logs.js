@@ -7,7 +7,7 @@ import tokenChecker from "../DB/token.js";
 
 
 //db client 
-import {connectionString} from "../DB/db.js";
+import {client} from "../DB/db.js";
 import { get } from "https";
 
 //useable variables for automation
@@ -18,9 +18,7 @@ import { get } from "https";
     //payments collection 
     let payments = users.collection("payments")
      //jwt token with our logged in UID
-     const jwt = req.headers.authorization.split(' ')[1]
-     const payload = jwt.verify(jwt,process.env.JWT_SECRET)
-     const userID = payload.sub
+     
 
 //modules setup
 

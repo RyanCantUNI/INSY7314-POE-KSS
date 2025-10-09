@@ -14,9 +14,9 @@ router.post('/register', async (req, res) => {
     const { fullName, email, idNumber, accountNumber, password } = req.body;
 
     const nameRegex = "/^[A-Za-z\s]{3,50}$/";
-        const idRegex = /^[0-9]{6,13}$/;
-        const accountRegex = /^[0-9]{6,15}$/;
-        const passwordRegex = /^[A-Za-z0-9!@#\$%\^&\*]{8,}$/;
+        const idRegex = "/^[0-9]{6,13}$/";
+        const accountRegex = "/^[0-9]{6,15}$/";
+        const passwordRegex = "/^[A-Za-z0-9!@#\$%\^&\*]{8,}$/";
 
 
     if (

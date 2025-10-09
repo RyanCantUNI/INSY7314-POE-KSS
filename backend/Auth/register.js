@@ -16,13 +16,24 @@ const users = client.db("APDS").collection("users");
 // Registration endpoint
 router.post('/register', async (req, res) => {
     const { fullName, email, idNumber, accountNumber, password } = req.body;
+    // accountNumber standds for Bank account number
+    const nameRegex = "/^[A-Za-z\s]{3,50}$/";
+    const idRegex = "/^[0-9]{6,13}$/";
+    const accountRegex = "/^[0-9]{6,15}$/";
+    const passwordRegex = "/^[A-Za-z0-9!@#\$%\^&\*]{8,}$/";
 
-     const nameRegex = "/^[A-Za-z\s]{3,50}$/";
-         const idRegex = /^[0-9]{6,13}$/;
-         const accountRegex = /^[0-9]{6,15}$/;
-         const passwordRegex = /^[A-Za-z0-9!@#\$%\^&\*]{8,}$/;
-    
 
+    if (
+        !validateInput(nameRegex, fullName) ||
+        !validateInput(idRegex, idNumber) ||
+        !validateInput(accountRegex, accountNumber) ||
+        !validateInput(passwordRegex, password)
+    ) {
+        return res.status(400).json({ message: 'Invalid input. Please check your details.' });
+    }
+    else {
+
+        
    
     try {
         //input validation
@@ -63,7 +74,8 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Error registering user' });
     }
-    }
+}   
+}
 
 );
 

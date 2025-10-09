@@ -38,3 +38,5 @@ const PaymentList = () => {
         </div>
     );
 }
+//Export the list of payments
+export default PaymentList

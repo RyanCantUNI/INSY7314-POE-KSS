@@ -29,3 +29,8 @@ KracKShacKSecurity presents a secure international payment system designed for b
 - For backend, input npm start to connect the project to the server
 - Access the app in your browser at: http://localhost:5173
 - or the backend API at: http://localhost:5000/api
+
+Acknowledgements
+This project received debugging and coding assistance using AI tools. 
+Specifically, Cursor, Windsurf, and ChatGPT were used during development for troubleshooting, 
+code suggestions, and improvements in some parts of the codebase.

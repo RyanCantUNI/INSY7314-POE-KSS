@@ -3,7 +3,7 @@ import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddPayment = () => {
-    const [userID, setUserID] = useState('');
+    const userID = localStorage.getItem("userID");
     const [amount, setAmount] = useState('');
     const [providerAccount, setProviderAccount] = useState('');
     const [currency, setCurrency] = useState('');
@@ -19,7 +19,7 @@ const AddPayment = () => {
             currency: currency,
             SWIFTCode: SWIFTCode
         };
-        axios.post("https://localhost:443/api/logs", payment)
+        axios.post("https://localhost:443/payment", payment)
             .then((response) => {
                 alert("Payment added successfully!");
                 navigate("/paymentList");

@@ -31,7 +31,7 @@ app.post("/login", async (req, res) => {
             //get UUID from db for token
             const tokenID = user.UUID;
             console.log(tokenID);
-            const token = jwt.sign({ email: email }, "User token", { expiresIn: '2h' });
+            const token = jwt.sign({tokenID}, "User token", { expiresIn: '2h' });
             res.status(200).send("Successfully logged in");
             console.log(token);
         }

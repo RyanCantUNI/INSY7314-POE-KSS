@@ -11,6 +11,7 @@ import cors from "cors";
 import fs from "fs";
 
 //modules to go here
+import {connectToDatabase} from "./db.js";
 
 
 //define server app
@@ -48,3 +49,7 @@ app.use(
 )
 
 server.listen(port, () => console.log(`Server listening on port ${port}`));
+
+
+//connect to db once server is running 
+connectToDatabase();

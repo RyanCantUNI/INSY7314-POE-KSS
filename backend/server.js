@@ -44,16 +44,16 @@ app
 
 //setting up x-frame for clickjacking and cross site scripting
 //taken from: https://helmetjs.github.io/#x-frame-options
-app.use(
-    helmet(
-        {
-            xFrameOptions:
-            {
-                action: "sameorigin"
-            }
-        }
-    )
-)
+// app.use(
+//     helmet(
+//         {
+//             xFrameOptions:
+//             {
+//                 action: "sameorigin"
+//             }
+//         }
+//     )
+// )
 
 server.listen(port, () => console.log(`Server listening on port ${port}`));
 

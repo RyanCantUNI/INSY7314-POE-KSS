@@ -3,8 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/login';
 import Register from './components/register';
-import payment from './components/payment';
-import logs from './components/logs';
+import Payment from './components/payment';
+import Logs from './components/logs';
 
 function App() {
   return (

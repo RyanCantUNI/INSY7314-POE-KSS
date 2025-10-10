@@ -20,19 +20,21 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Send POST request to backend
-      const response = await axios.post('https://localhost:443/login', formData, {
-        withCredentials: true, // allows cookies if backend sets them
-      });
-
-      // Get JWT token from backend
-      const token = response.data.token;
-
-      // Store it in localStorage for persistence
-      localStorage.setItem('token', token);
-
-      alert('Successfully logged in!');
-      navigate('/payments'); // redirect to next page
+      const user = {
+        email: formData.email,
+        password: formData.password
+      };
+      axios.post("https://localhost:443/login", user)
+        .then((response) => {
+          alert("Login successful!");
+          localStorage.setItem("userID", response.data.userID);
+          console.log(localStorage.getItem("userID", response.data.userID))
+          navigate("/paymentList");
+        })
+        .catch((error) => {
+          alert("Login failed. Please check your credentials.");
+          console.error("Login error:", error);
+        });
     } catch (error) {
       console.error('Login error:', error);
 

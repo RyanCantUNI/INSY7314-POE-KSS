@@ -14,8 +14,8 @@ function Index() {
         <h1>Welcome to Our App</h1>
         <p>Please log in or register to continue.</p>
         <div className="button-container">
-          <Link to="/login" className="btn btn-login">Login</Link>
-          <Link to="/register" className="btn btn-register">Register</Link>
+          <button className="btn btn-register btn-primary" onClick={() => window.location.href = '/register'}>Register</button>
+          <button className="btn btn-login btn-secondary" onClick={() => window.location.href = '/login'}>Login</button>
         </div>
       </header>
     </div>

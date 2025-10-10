@@ -34,45 +34,44 @@ function Login() {
         alert("Login failed. Please check your credentials.");
         console.error("Login error:", error);
       });
-
-    return (
-      <div style={{ textAlign: 'center', marginTop: '50px', padding: '20px' }}>
-        <h1>Login Page</h1>
-        <p>Welcome back! Please log in below.</p>
-        <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', textAlign: 'left' }}>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-              required
-            />
-          </div>
-          <div style={{ marginBottom: '15px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', textAlign: 'left' }}>Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-              required
-            />
-          </div>
-          <div style={{ marginTop: '20px' }}>
-            <button type="submit" style={{ padding: '10px 20px', marginRight: '10px', cursor: 'pointer' }}>
-              Login
-            </button>
-            <button type="button" onClick={() => navigate('/register')} style={{ padding: '10px 20px', cursor: 'pointer' }}>
-              Register
-            </button>
-          </div>
-        </form>
-      </div>
-    );
   }
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px', padding: '20px' }}>
+      <h1>Login Page</h1>
+      <p>Welcome back! Please log in below.</p>
+      <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '15px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', textAlign: 'left' }}>Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            required
+          />
+        </div>
+        <div style={{ marginBottom: '15px' }}>
+          <label style={{ display: 'block', marginBottom: '5px', textAlign: 'left' }}>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            required
+          />
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <button type="submit" style={{ padding: '10px 20px', marginRight: '10px', cursor: 'pointer' }}>
+            Login
+          </button>
+          <button type="button" onClick={() => navigate('/register')} style={{ padding: '10px 20px', cursor: 'pointer' }}>
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 export default Login;

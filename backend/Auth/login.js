@@ -2,6 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { body, validationResult } from "express-validator";
+
 
 import { client } from "../DB/db.js";
 
@@ -15,32 +17,41 @@ app.use(bodyParser.json());
 let collection = client.db("APDS").collection("users");
 
 // Login route
-app.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await collection.findOne({ email: email });
-        if (!user) {
-            return res.status(401).send("Ensure name and password are correct.");
+app.post("/login",
+    //input sanitation
+    body('email').isEmail(),
+    body('password').isLength({ min: 8 }),
+    body('accountNumber').isLength({ min: 6, max: 15 }),
+    async (req, res) => {
+        const { email, password, accountNumber } = req.body;
+        try {
+            const user = await collection.findOne({ email: email });
+            const isValid = validationResult(req);
+            if (isValid) {
+                if (!user) {
+                    return res.status(401).send("Ensure name and password are correct.");
+                }
+                else {
+                    const isPasswordValid = await bcrypt.compare(password, user.password);
+                    const isAccountValid = await bcrypt.compare(accountNumber, user.accountNumber);
+                    if (!isPasswordValid && !isAccountValid) {
+                        return res.status(401).send("Ensure name and password are correct.");
+                    }
+                    else {
+                        //get UUID from db for token
+                        const tokenID = user.UUID;
+                        console.log(tokenID);
+                        const token = jwt.sign({ tokenID }, "User token", { expiresIn: '2h' });
+                        res.status(200).send("Successfully logged in");
+                        console.log(token);
+                    }
+                }
+            }
         }
-        else{
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(401).send("Ensure name and password are correct.");
+        catch (error) {
+            console.error(error);
+            res.status(401).send("Failed login attempt.");
         }
-        else {
-            //get UUID from db for token
-            const tokenID = user.UUID;
-            console.log(tokenID);
-            const token = jwt.sign({tokenID}, "User token", { expiresIn: '2h' });
-            res.status(200).send("Successfully logged in");
-            console.log(token);
-        }
-        }
-    }
-    catch (error) {
-        console.error(error);
-        res.status(401).send("Failed login attempt.");
-    }
-})
+    })
 
 export default app;

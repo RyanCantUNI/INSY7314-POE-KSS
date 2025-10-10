@@ -25,7 +25,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://localhost:44300/api/register', formData);
+      const response = await axios.post('https://localhost:443/register', formData);
       alert('User registered successfully!');
       console.log('Registration response:', response.data);
       navigate('/login');

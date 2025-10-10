@@ -30,7 +30,7 @@ const AddPayment = () => {
         axios.post("https://localhost:443/payment:"+loginID, payment)
             .then((response) => {
                 alert("Payment added successfully!");
-                //console.log(response.data); --used for debugging
+                //console.log(response.data); //--used for debugging
                 navigate("/logs");
             })
             .catch((error) => {

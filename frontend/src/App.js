@@ -1,23 +1,82 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/login';
 import Register from './components/register';
 import Payment from './components/payment';
 import Logs from './components/logs';
 
-// Move Index outside App
+// 🎨 Updated Landing (Index) Page
 function Index() {
+  const navigate = useNavigate();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to Our App</h1>
-        <p>Please log in or register to continue.</p>
-        <div className="button-container">
-          <button className="btn btn-register btn-primary" onClick={() => window.location.href = '/register'}>Register</button>
-          <button className="btn btn-login btn-secondary" onClick={() => window.location.href = '/login'}>Login</button>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        background: 'linear-gradient(135deg, #6a11cb, #2575fc)',
+        fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: '#fff',
+          padding: '40px',
+          borderRadius: '15px',
+          boxShadow: '0 4px 25px rgba(0, 0, 0, 0.15)',
+          width: '100%',
+          maxWidth: '450px',
+          textAlign: 'center'
+        }}
+      >
+        <h1 style={{ color: '#333', marginBottom: '10px', fontWeight: '700' }}>Welcome to Our App</h1>
+        <p style={{ color: '#666', marginBottom: '30px' }}>
+          Please log in or register to continue.
+        </p>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <button
+            onClick={() => navigate('/register')}
+            style={{
+              backgroundColor: '#2575fc',
+              color: '#fff',
+              padding: '12px 20px',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              width: '48%',
+              transition: 'background-color 0.3s ease, transform 0.2s ease'
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
+            onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
+          >
+            Register
+          </button>
+
+          <button
+            onClick={() => navigate('/login')}
+            style={{
+              backgroundColor: '#f0f0f0',
+              color: '#333',
+              padding: '12px 20px',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              width: '48%',
+              transition: 'background-color 0.3s ease, transform 0.2s ease'
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
+            onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
+          >
+            Login
+          </button>
         </div>
-      </header>
+      </div>
     </div>
   );
 }

@@ -15,22 +15,22 @@ const AddPayment = () => {
     const handleAddPayment = (e) => {
         e.preventDefault();
         const payment = {
-           // userID: userID,
+           
             amount: amount,
             providerAccount: providerAccount,
             currency: currency,
             SWIFTCode: SWIFTCode
         };
-        const token = localStorage.getItem("token");
+        //const token = localStorage.getItem("token"); --used for debugging
 
-        const loginID = localStorage.getItem("userID");
+         //const loginID = localStorage.getItem("userID"); --used for debugging
         
         
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios.post("https://localhost:443/payment:"+loginID, payment)
             .then((response) => {
                 alert("Payment added successfully!");
-                console.log(response.data);
+                //console.log(response.data); --used for debugging
                 navigate("/logs");
             })
             .catch((error) => {

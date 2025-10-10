@@ -32,9 +32,9 @@ getLogs.get('/logs:id',
     try {
         //get all payments containing our UID
         const id = req.params.id.replace(":", "")
-        console.log(id)
+        //console.log(id) --used for debugging
         const logs = await payments.find({ userID: id}).toArray()
-        console.log(logs)
+        //console.log(logs) --used for debugging
         res.status(200).send(logs)
     }
     catch (err) {

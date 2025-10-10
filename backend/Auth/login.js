@@ -40,15 +40,15 @@ app.post("/login",
                     else {
                         //get UUID from db for token
                         const tokenID = user.UUID;
-                        console.log("tokenID: "+tokenID);
+                        //console.log("tokenID: "+tokenID); --used for testing
                         const token = jwt.sign({ tokenID }, "User token", { expiresIn: '2h' });
 
                         //storing UUID for loged in user
                         const UUID = user.UUID;
                         //localStorage.setItem("userID", userId);
-                        console.log("logged in user"+UUID);
+                        //console.log("logged in user"+UUID); --used for testing
                         res.status(200).json({ UUID: UUID, Message: "Successfully logged in" })
-                        console.log(token);
+                        //console.log(token); --used for testing
                     }
                 }
             }

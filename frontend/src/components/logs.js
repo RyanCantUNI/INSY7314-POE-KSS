@@ -9,7 +9,7 @@ const PaymentList = () => {
 
     //Get blogs
     useEffect(() => {
-        axios.get("https://localhost:443/api/logs")
+        axios.get("https://localhost:443/logs")
             .then((response) => {
                 setPayments(response.data);
             })

@@ -31,7 +31,7 @@ const AddPayment = () => {
             .then((response) => {
                 alert("Payment added successfully!");
                 console.log(response.data);
-                navigate("/logs:"+loginID);
+                navigate("/logs");
             })
             .catch((error) => {
                 alert("Error adding payment. Please try again.");

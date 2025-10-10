@@ -26,7 +26,9 @@ const getLogs = express()
 
 //this id is also UID
 
-getLogs.get('/logs:id', tokenChecker, async (req, res) => {
+getLogs.get('/logs:id', 
+    //tokenChecker, 
+    async (req, res) => {
     try {
         //get all payments containing our UID
         const id = req.params.id.replace(":", "")

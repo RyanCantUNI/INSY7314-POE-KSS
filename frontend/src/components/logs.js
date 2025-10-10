@@ -6,10 +6,16 @@ const PaymentList = () => {
     const [payments, setPayments] = useState([]);
     const navigate = useNavigate();
     Array.isArray(payments);
-
+    
     //Get blogs
     useEffect(() => {
-        axios.get("https://localhost:443/logs")
+        //get current user 
+    const loginID = localStorage.getItem("userID");
+
+    //get token
+     const token = localStorage.getItem("token");
+     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.get("https://localhost:443/logs:"+loginID)
             .then((response) => {
                 setPayments(response.data);
             })

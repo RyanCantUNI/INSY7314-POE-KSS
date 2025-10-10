@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -21,20 +22,25 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
-      const response = await axios.post('https://localhost:443/register', formData);
+      const response = await axios.post('https://localhost:44300/api/register', formData);
       alert('User registered successfully!');
       console.log('Registration response:', response.data);
       navigate('/login');
     } catch (error) {
       console.error('Registration error:', error);
+
       if (error.response) {
         alert(`Registration failed: ${error.response.data.message || error.response.data}`);
       } else if (error.request) {
-        alert('Cannot connect to server. Please ensure the backend is running on https://localhost:443');
+        alert('Cannot connect to server. Please ensure the backend is running.');
       } else {
         alert('Registration failed. Please check your details.');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,130 +60,61 @@ function Register() {
           backgroundColor: '#fff',
           padding: '40px',
           borderRadius: '15px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 4px 25px rgba(0, 0, 0, 0.15)',
           width: '100%',
           maxWidth: '450px',
           textAlign: 'center'
         }}
       >
-        <h1 style={{ marginBottom: '10px', color: '#333' }}>Register</h1>
-        <p style={{ color: '#666', marginBottom: '30px' }}>Create a new account below.</p>
+        <h1 style={{ marginBottom: '10px', color: '#333', fontWeight: '700' }}>Create Account</h1>
+        <p style={{ color: '#666', marginBottom: '30px' }}>Fill in your details to register.</p>
 
         <form onSubmit={handleSubmit}>
-          {/* Full Name */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Enter your full name"
-              value={formData.fullName}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
+          {['fullName', 'email', 'idNumber', 'accountNumber', 'password'].map((field) => (
+            <div key={field} style={{ marginBottom: '20px', textAlign: 'left' }}>
+              <label
+                style={{
+                  display: 'block',
+                  marginBottom: '5px',
+                  fontWeight: '600',
+                  color: '#333'
+                }}
+              >
+                {field === 'fullName'
+                  ? 'Full Name'
+                  : field === 'email'
+                  ? 'Email'
+                  : field === 'idNumber'
+                  ? 'ID Number'
+                  : field === 'accountNumber'
+                  ? 'Account Number'
+                  : 'Password'}
+              </label>
+              <input
+                type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
+                name={field}
+                placeholder={`Enter your ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                  boxSizing: 'border-box',
+                  transition: 'border-color 0.3s ease'
+                }}
+                onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
+                onBlur={(e) => (e.target.style.borderColor = '#ccc')}
+              />
+            </div>
+          ))}
 
-          {/* Email */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-
-          {/* ID Number */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>
-              ID Number
-            </label>
-            <input
-              type="text"
-              name="idNumber"
-              placeholder="Enter your ID number"
-              value={formData.idNumber}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-
-          {/* Account Number */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>
-              Account Number
-            </label>
-            <input
-              type="text"
-              name="accountNumber"
-              placeholder="Enter your account number"
-              value={formData.accountNumber}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-
-          {/* Password */}
-          <div style={{ marginBottom: '30px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-
-          {/* Buttons */}
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }}>
             <button
               type="submit"
+              disabled={loading}
               style={{
                 backgroundColor: '#2575fc',
                 color: '#fff',
@@ -187,12 +124,13 @@ function Register() {
                 cursor: 'pointer',
                 fontWeight: '600',
                 width: '48%',
-                transition: 'background-color 0.3s ease'
+                opacity: loading ? 0.7 : 1,
+                transition: 'background-color 0.3s ease, transform 0.2s ease'
               }}
               onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
               onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
             >
-              Register
+              {loading ? 'Registering...' : 'Register'}
             </button>
 
             <button
@@ -207,7 +145,7 @@ function Register() {
                 cursor: 'pointer',
                 fontWeight: '600',
                 width: '48%',
-                transition: 'background-color 0.3s ease'
+                transition: 'background-color 0.3s ease, transform 0.2s ease'
               }}
               onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
               onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}

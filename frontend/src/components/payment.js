@@ -21,9 +21,9 @@ const AddPayment = () => {
             currency: currency,
             SWIFTCode: SWIFTCode
         };
-        //const token = localStorage.getItem("token"); --used for debugging
+        const token = localStorage.getItem("token"); 
 
-         //const loginID = localStorage.getItem("userID"); --used for debugging
+        const loginID = localStorage.getItem("userID"); 
         
         
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

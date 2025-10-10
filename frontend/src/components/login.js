@@ -28,7 +28,7 @@ function Login() {
         alert("Login successful!");
         localStorage.setItem("userID", response.data.userID);
         console.log(localStorage.getItem("userID", response.data.userID))
-        navigate("/paymentList");
+        navigate("/payment");
       })
       .catch((error) => {
         alert("Login failed. Please check your credentials.");

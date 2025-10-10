@@ -31,7 +31,6 @@ app.use(register);
 
 //configure security 
 app.use(helmet());
-app.use(cors());
 
 //configure server to use https
 const server = http.createServer(
@@ -55,6 +54,8 @@ app
 //     )
 // )
 
+
+//app.use(cors())
 server.listen(port, () => console.log(`Server listening on port ${port}`));
 
 

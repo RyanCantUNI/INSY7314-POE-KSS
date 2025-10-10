@@ -40,6 +40,13 @@ const server = http.createServer(
 },
 app
 )
+app.use((_, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    next();
+});
+
 
 //setting up x-frame for clickjacking and cross site scripting
 //taken from: https://helmetjs.github.io/#x-frame-options

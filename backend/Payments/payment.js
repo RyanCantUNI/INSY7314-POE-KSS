@@ -58,13 +58,14 @@ makePayment.post('/payment:id',
     body('providerAccount').isLength({ min: 6, max: 15 }),
     body('currency').isLength({ min: 1 }),
     body('SWIFTCode').isLength({ min: 4 }),
-    tokenChecker, async (req, res) => {
-        isValid = validationResult(req);
+    //tokenChecker,
+     async (req, res) => {
+        let isValid = validationResult(req);
         if (isValid) {
             try {
                 const logedInUID = req.params.id.replace(":", "")
-                console.log(logedInUID)
-                console.log(tokenChecker)
+                console.log("logedInUID", logedInUID)
+                console.log("token",tokenChecker)
                 //jwt token with our logged in UID
                 //const tokenID  = req.cookies.token;
                 //const payload = jwt.verify(tokenID, "User token");

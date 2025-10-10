@@ -6,16 +6,16 @@ const PaymentList = () => {
     const [payments, setPayments] = useState([]);
     const navigate = useNavigate();
     Array.isArray(payments);
-    
+
     //Get blogs
     useEffect(() => {
         //get current user 
-    const loginID = localStorage.getItem("userID");
+        const loginID = localStorage.getItem("userID");
 
-    //get token
-     const token = localStorage.getItem("token");
-     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        axios.get("https://localhost:443/logs:"+loginID)
+        //get token
+        const token = localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.get("https://localhost:443/logs:" + loginID)
             .then((response) => {
                 setPayments(response.data);
             })
@@ -36,16 +36,25 @@ const PaymentList = () => {
             padding: '40px',
             borderRadius: '15px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            background: 'linear-gradient(135deg, #6a11cb, #2575fc)',
             width: '100%',
-            maxWidth: '600px',
+            boxSizing: 'border-box',
+            margin: '0 0 0 0',
+            overflow: 'auto',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
             textAlign: 'center'
         }}>
-            <h1 style={{ marginBottom: '10px', color: '#333' }}>Payment List</h1>
+            <h1 style={{ marginBottom: '10px', marginTop: '200px', color: '#FFFFFF' }}>Payment List</h1>
+            <button onClick={() => navigate("/payment")} style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#4CAF50', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                Go Back
+            </button>
+            <br />
             <ul style={{ listStyle: 'none', padding: '0' }}>
                 {payments.map((payment) => (
                     <li key={payment.paymentID} style={{ marginBottom: '20px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)', textAlign: 'left' }}>
-                        <h2 style={{ marginBottom: '5px', color: '#333' }}>{payment.paymentID}</h2>
-                        <p style={{ marginBottom: '5px', color: '#666' }}>Date: {payment.date}</p>
+
+                        <h2 style={{ marginBottom: '5px', color: '#666' }}>Date: {payment.date}</h2>
+                        <p style={{ marginBottom: '5px', color: '#333' }}>Payment ID: {payment.paymentID}</p>
                         <p style={{ marginBottom: '5px', color: '#666' }}>User ID: {payment.userID}</p>
                         <p style={{ marginBottom: '5px', color: '#666' }}>Amount: {payment.amount}</p>
                         <p style={{ marginBottom: '5px', color: '#666' }}>Provider Account: {payment.providerAccount}</p>

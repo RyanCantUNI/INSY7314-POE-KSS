@@ -2,7 +2,13 @@
 KracKShacKSecurity
 
 # Description
-KracKShacKSecurity presents a secure international payment system designed for banking institutions to manage customer and employee interactions safely. The platform allows customers to register, log in, and make international payments via a web portal, while bank employees verify and forward transactions to SWIFT. Built with React and Node.js, the system emphasizes strong cybersecurity practices, including password hashing and salting, SSL encryption, input whitelisting using RegEx, and protection against common web vulnerabilities such as XSS, CSRF, and SQL injection.
+KracKShacKSecurity presents a secure international payment system designed 
+for banking institutions to manage customer and employee interactions safely. 
+The platform allows customers to register, log in, and make international payments via a web portal, 
+while bank employees verify and forward transactions to SWIFT. Built with React and Node.js, 
+the system emphasizes strong cybersecurity practices, including password hashing and salting, 
+SSL encryption, input whitelisting using RegEx, 
+and protection against common web vulnerabilities such as XSS, CSRF, and SQL injection.
 
 # Features
 - Secure user registration and login (with bcrypt hashing)
@@ -12,6 +18,12 @@ KracKShacKSecurity presents a secure international payment system designed for b
 - HTTPS/SSL implementation for secure traffic
 - Protection against OWASP Top 10 vulnerabilities (XSS, CSRF, SQL Injection)
 - RESTful API for backend communication
+
+# Imports needed
+- Backend
+- npm i express cors axios node-fetch dotenv uuid jsonwebtoken mongodb bcrypt https helmet fs nodemon express-validator
+-Frontend
+- npm i express middleware axios react-router-dom
 
 # Tech Stack
 **Frontend:** React, Vite, Tailwind CSS  
@@ -27,8 +39,10 @@ KracKShacKSecurity presents a secure international payment system designed for b
 # Usage Instructions
 - In the terminal for frontend, input npm run dev to run the frontend
 - For backend, input npm start to connect the project to the server
-- Access the app in your browser at: http://localhost:5173
-- or the backend API at: http://localhost:5000/api
+- Access the app in your browser at: http://localhost:443
+- or the backend API at: http://localhost:443/api
+- Once it loads onto the browser, login or register
+- After logging in, users can make payments and see a list of payments made
 
 Acknowledgements
 This project received debugging and coding assistance using AI tools. 

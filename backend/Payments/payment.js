@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import { v4 as uuidv4 } from 'uuid';
 import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
+import { body, validationResult } from "express-validator";
 
 
 
@@ -51,7 +52,13 @@ makePayment.use(bodyParser.urlencoded({ extended: true }))
 } */
 //post method 
 //this is UUID
-makePayment.post('/payment:id',tokenChecker,  async (req, res) => {
+makePayment.post('/payment:id',
+    //input sanitation
+    body('amount').isLength({ min: 1 }),
+    body('providerAccount').isLength({ min: 6, max: 15 }),
+    body('currency').isLength({ min: 1 }),
+    body('SWIFTCode').isLength({ min: 4 }),
+    tokenChecker,  async (req, res) => {
     try {
         const logedInUID = req.params.id.replace(":", "")
         console.log(logedInUID)

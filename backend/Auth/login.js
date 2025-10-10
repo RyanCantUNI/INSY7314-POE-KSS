@@ -32,8 +32,8 @@ app.post("/login",
                     return res.status(401).send("Ensure name and password are correct.");
                 }
                 else {
-                    const isPasswordValid = await bcrypt.compare(password, user.password);
-                    const isAccountValid = await bcrypt.compare(accountNumber, user.accountNumber);
+                    let isPasswordValid = await bcrypt.compare(password, user.password);
+                    let isAccountValid = await bcrypt.compare(accountNumber, user.accountNumber);
                     if (!isPasswordValid && !isAccountValid) {
                         return res.status(401).send("Ensure name and password are correct.");
                     }

@@ -160,6 +160,25 @@ const AddPayment = () => {
                         >
                             Add Payment
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/logs')}
+                            style={{
+                                backgroundColor: '#909090',
+                                color: '#fff',
+                                padding: '10px 20px',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                width: '48%',
+                                transition: 'background-color 0.3s ease'
+                            }}
+                            onMouseOver={(e) => e.target.style.backgroundColor = '#a0a0a0'}
+                            onMouseOut={(e) => e.target.style.backgroundColor = '#909090'}
+                        >
+                            See Logs
+                        </button>
                     </div>
                 </form>
             </div>

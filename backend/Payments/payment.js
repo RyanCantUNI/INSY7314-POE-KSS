@@ -58,45 +58,48 @@ makePayment.post('/payment:id',
     body('providerAccount').isLength({ min: 6, max: 15 }),
     body('currency').isLength({ min: 1 }),
     body('SWIFTCode').isLength({ min: 4 }),
-    tokenChecker,  async (req, res) => {
-    try {
-        const logedInUID = req.params.id.replace(":", "")
-        console.log(logedInUID)
-        console.log(tokenChecker)
-        //jwt token with our logged in UID
-        //const tokenID  = req.cookies.token;
-        //const payload = jwt.verify(tokenID, "User token");
-        //const logedInUID = payload.UUID
-        //const logedInUID = '173'
+    tokenChecker, async (req, res) => {
+        isValid = validationResult(req);
+        if (isValid) {
+            try {
+                const logedInUID = req.params.id.replace(":", "")
+                console.log(logedInUID)
+                console.log(tokenChecker)
+                //jwt token with our logged in UID
+                //const tokenID  = req.cookies.token;
+                //const payload = jwt.verify(tokenID, "User token");
+                //const logedInUID = payload.UUID
+                //const logedInUID = '173'
 
-        //SWIFT api call would go here
+                //SWIFT api call would go here
 
-        //if successful
-        //create our db payment log
-        const paymentModule = {
-            paymentID: uuidv4(),
-            date: currentDate,
-            userID: logedInUID,
+                //if successful
+                //create our db payment log
+                const paymentModule = {
+                    paymentID: uuidv4(),
+                    date: currentDate,
+                    userID: logedInUID,
 
-            amount: req.body.amount,
-            providerAccount: req.body.providerAccount,
-            currency: req.body.currency,
-            SWIFTCode: req.body.SWIFTCode
+                    amount: req.body.amount,
+                    providerAccount: req.body.providerAccount,
+                    currency: req.body.currency,
+                    SWIFTCode: req.body.SWIFTCode
+                }
+
+                //add to payments collection 
+                await payments.insertOne(paymentModule)
+                res.status(200).send('Payment made')
+
+
+
+            }
+            catch (err) {
+                console.log('Error makeing payment', err)
+                res.status(500).send('Error makeing payment')
+            }
         }
 
-        //add to payments collection 
-        await payments.insertOne(paymentModule)
-        res.status(200).send('Payment made')
-
-
-
     }
-    catch (err) {
-        console.log('Error makeing payment', err)
-        res.status(500).send('Error makeing payment')
-    }
-
-}
 
 )
 

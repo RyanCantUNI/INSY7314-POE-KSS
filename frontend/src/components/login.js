@@ -29,7 +29,12 @@ function Login() {
     axios.post("https://localhost:443/login", user)
       .then((response) => {
         alert("Login successful!");
-        localStorage.setItem("userID", response.data.userID);
+        const data = response.data;
+        console.log(data);
+
+        localStorage.setItem("userID", response.data.UUID);
+        console.log(response.data.userID);
+        
         navigate("/payment");
       })
       .catch((error) => {

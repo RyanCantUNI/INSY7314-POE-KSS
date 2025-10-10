@@ -10,6 +10,7 @@
     "axios": "^1.12.2",
     "cookie": "^1.0.2",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "middleware": "^1.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

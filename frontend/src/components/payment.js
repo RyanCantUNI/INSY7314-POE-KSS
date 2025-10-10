@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 const AddPayment = () => {
     const userID = localStorage.getItem("userID");
     const [amount, setAmount] = useState('');
@@ -13,19 +15,23 @@ const AddPayment = () => {
     const handleAddPayment = (e) => {
         e.preventDefault();
         const payment = {
-            userID: userID,
+           // userID: userID,
             amount: amount,
             providerAccount: providerAccount,
             currency: currency,
             SWIFTCode: SWIFTCode
         };
         const token = localStorage.getItem("token");
+
+        const loginID = localStorage.getItem("userID");
+        
+        
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        axios.post("https://localhost:443/payment:[token]", payment)
+        axios.post("https://localhost:443/payment:"+loginID, payment)
             .then((response) => {
                 alert("Payment added successfully!");
                 console.log(response.data);
-                navigate("/logs");
+                navigate("/logs:"+loginID);
             })
             .catch((error) => {
                 alert("Error adding payment. Please try again.");

@@ -19,10 +19,13 @@ const AddPayment = () => {
             currency: currency,
             SWIFTCode: SWIFTCode
         };
-        axios.post("https://localhost:443/payment", payment)
+        const token = localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.post("https://localhost:443/payment:[token]", payment)
             .then((response) => {
                 alert("Payment added successfully!");
-                navigate("/paymentList");
+                console.log(response.data);
+                navigate("/logs");
             })
             .catch((error) => {
                 alert("Error adding payment. Please try again.");

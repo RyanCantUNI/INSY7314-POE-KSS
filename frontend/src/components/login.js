@@ -30,10 +30,10 @@ function Login() {
       .then((response) => {
         alert("Login successful!");
         const data = response.data;
-        console.log(data);
+        //console.log(data); --used for debugging
 
         localStorage.setItem("userID", response.data.UUID);
-        console.log(response.data.userID);
+        //console.log(response.data.userID); -- used for debugging
         
         navigate("/payment");
       })

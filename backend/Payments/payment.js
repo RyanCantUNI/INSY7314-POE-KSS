@@ -64,13 +64,9 @@ makePayment.post('/payment:id',
         if (isValid) {
             try {
                 const logedInUID = req.params.id.replace(":", "")
-                console.log("logedInUID", logedInUID)
-                console.log("token",tokenChecker)
-                //jwt token with our logged in UID
-                //const tokenID  = req.cookies.token;
-                //const payload = jwt.verify(tokenID, "User token");
-                //const logedInUID = payload.UUID
-                //const logedInUID = '173'
+                //console.log("logedInUID", logedInUID) --used for debugging
+                //console.log("token",tokenChecker)--used for debugging
+                
 
                 //SWIFT api call would go here
 

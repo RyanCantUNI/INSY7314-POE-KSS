@@ -10,12 +10,7 @@ import { client } from "../DB/db.js";
 const router = express.Router();
 router.use(express.json());
 
-function validateInput(regex, value) {
-    const isValid = regex.test(value);
-  if (isValid) {
-    true;
-  }
-}
+
 
 //user collection in BD
 const users = client.db("APDS").collection("users");
@@ -23,7 +18,7 @@ const users = client.db("APDS").collection("users");
 // Registration endpoint
 router.post('/register',
     [
-            //regex block here
+        //regex block here
         body('fullName').isLength({ min: 3, max: 50 }),
         body('email').isEmail(),
         body('idNumber').isLength({ min: 6, max: 13 }),
@@ -34,18 +29,11 @@ router.post('/register',
      const 
      isValid = validationResult(req);
     // accountNumber stands for Bank account number
-   // const nameRegex = "/^[A-Za-z\s]{3,50}$/";
-    //const idRegex = "/^[0-9]{6,13}$/";
-    //const accountRegex = "/^[0-9]{6,15}$/";
-    //const passwordRegex = "/^[A-Za-z0-9!@#\$%\^&\*]{8,}$/";
-  
+ 
 
 
      if (
-         // validateInput(nameRegex, fullName) ||
-         // validateInput(idRegex, idNumber) ||
-         // validateInput(accountRegex, accountNumber) ||
-         // validateInput(passwordRegex, password)
+         
 
 
        isValid

@@ -20,18 +20,31 @@ const PaymentList = () => {
 
     //Return the list of payments
     return (
-        <div>
-            <h1>Payment List</h1>
-            <ul>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            backgroundColor: '#f5f5f5',
+            padding: '40px',
+            borderRadius: '15px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            width: '100%',
+            maxWidth: '600px',
+            textAlign: 'center'
+        }}>
+            <h1 style={{ marginBottom: '10px', color: '#333' }}>Payment List</h1>
+            <ul style={{ listStyle: 'none', padding: '0' }}>
                 {payments.map((payment) => (
-                    <li key={payment.paymentID}>
-                        <h2>{payment.paymentID}</h2>
-                        <p>Date: {payment.date}</p>
-                        <p>User ID: {payment.userID}</p>
-                        <p>Amount: {payment.amount}</p>
-                        <p>Provider Account: {payment.providerAccount}</p>
-                        <p>Currency: {payment.currency}</p>
-                        <p>SWIFT Code: {payment.SWIFTCode}</p>
+                    <li key={payment.paymentID} style={{ marginBottom: '20px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)', textAlign: 'left' }}>
+                        <h2 style={{ marginBottom: '5px', color: '#333' }}>{payment.paymentID}</h2>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Date: {payment.date}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>User ID: {payment.userID}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Amount: {payment.amount}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Provider Account: {payment.providerAccount}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Currency: {payment.currency}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>SWIFT Code: {payment.SWIFTCode}</p>
                     </li>
                 ))}
             </ul>

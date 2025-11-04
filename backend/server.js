@@ -19,6 +19,9 @@ import register from "./Auth/register.js"
 //define server app
 const app  = express();
 
+//test
+
+
 //setting server to use json parser
 app.use(express.json());
 

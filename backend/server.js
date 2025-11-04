@@ -15,7 +15,7 @@ import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
 import login from "./Auth/login.js"
 import register from "./Auth/register.js"
-import manageUsers from "./routes/managerUsers.js";
+import manageUsers from "./Manager/manageusers.js";
 
 
 app.use("/api/manager", manageUsers);

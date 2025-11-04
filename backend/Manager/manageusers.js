@@ -11,7 +11,7 @@ const router = express.Router();
 const users = client.db("APDS").collection("users");
 
 // Middleware for manager authentication (JWT-based, for example)
-import { authManager } from "../middleware/authManager.js";
+import { managerAuth } from "../Auth/managerAuth.js";
 
 // Password hashing rounds
 const PASSWORD_SALT_ROUNDS = 12;

@@ -15,6 +15,10 @@ import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
 import login from "./Auth/login.js"
 import register from "./Auth/register.js"
+import manageUsers from "./routes/managerUsers.js";
+
+
+app.use("/api/manager", manageUsers);
 
 //define server app
 const app  = express();

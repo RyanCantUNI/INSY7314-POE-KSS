@@ -9,22 +9,23 @@ import helmet from "helmet";
 import cors from "cors";
 import fs from "fs";
 
+//define server app
+const app  = express();
+
 //modules to go here
 import {connectToDatabase} from "./DB/db.js";
 import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
 import login from "./Auth/login.js"
 import register from "./Auth/register.js"
-import manageUsers from "./Manager/manageusers.js";
+import managerAuth from "./Auth/managerAuth.js";
 
-
-app.use("/api/manager", manageUsers);
-
-//define server app
-const app  = express();
+app.use(express.json());
+app.use("/api/manager", managerAuth);
 
 //test
-
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 //setting server to use json parser
 app.use(express.json());

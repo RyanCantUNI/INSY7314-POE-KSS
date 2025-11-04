@@ -58,40 +58,7 @@ router.get("/users/:id",
 );
 
 // PUT /manager/users/:id  -> update allowed fields (manager only)
-router.put("/users/:id",
-  authManager,
-  [
-    param("id").isMongoId(),
-    body("fullName").optional().matches(/^[A-Za-z\s\-']{3,50}$/),
-    body("email").optional().isEmail().normalizeEmail(),
-    body("idNumber").optional().matches(/^[0-9]{6,13}$/),
-    body("accountNumber").optional().matches(/^[0-9]{6,15}$/),
-    body("password").optional().isStrongPassword({ minLength: 8, minNumbers: 1 }),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ message: "Invalid input", errors: errors.array() });
 
-    const id = req.params.id;
-    const update = {};
-    if (req.body.fullName) update.fullName = req.body.fullName;
-    if (req.body.email) update.email = req.body.email;
-    if (req.body.idNumber) update.idNumber = encryptField(req.body.idNumber);
-    if (req.body.accountNumber) update.accountNumber = encryptField(req.body.accountNumber);
-    if (req.body.password) update.passwordHash = await bcrypt.hash(req.body.password, PASSWORD_SALT_ROUNDS);
-
-    if (Object.keys(update).length === 0) return res.status(400).json({ message: "Nothing to update" });
-
-    try {
-      const result = await users.updateOne({ _id: new (require("mongodb")).ObjectId(id) }, { $set: update });
-      if (result.matchedCount === 0) return res.status(404).json({ message: "User not found" });
-      return res.json({ message: "Updated" });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Server error" });
-    }
-  }
-);
 
 // DELETE /manager/users/:id
 router.delete("/users/:id",

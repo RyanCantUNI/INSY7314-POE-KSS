@@ -29,37 +29,6 @@ router.get("/users",
   }
 );
 
-// GET /manager/users/:id
-router.get("/users/:id",
-  authManager,
-  [
-    param("id").isMongoId()
-  ],
-  async (req, res) => {
-    const id = req.params.id;
-    try {
-      const doc = await users.findOne({ _id: new (require("mongodb")).ObjectId(id) }, { projection: { passwordHash: 0 } });
-      if (!doc) return res.status(404).json({ message: "User not found" });
-
-      return res.json({
-        id: doc._id,
-        uuid: doc.uuid,
-        fullName: doc.fullName,
-        email: doc.email,
-        idNumber: decryptField(doc.idNumber),
-        accountNumber: decryptField(doc.accountNumber),
-        createdAt: doc.createdAt,
-      });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Server error" });
-    }
-  }
-);
-
-// PUT /manager/users/:id  -> update allowed fields (manager only)
-
-
 // DELETE /manager/users/:id
 router.delete("/users/:id",
   authManager,

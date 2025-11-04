@@ -1,0 +1,6 @@
+/*
+class summary 
+this is a template class for admin users in the mongo
+like mvc same same but different 
+
+*/

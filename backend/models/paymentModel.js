@@ -1,0 +1,6 @@
+/*
+class summary 
+this is a template class for customer payments in the mongo
+like mvc same same but different 
+
+*/

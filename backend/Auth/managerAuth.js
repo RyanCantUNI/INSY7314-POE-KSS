@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import xss from "xss-clean";
+import { filterXSS } from "xss";
 import cors from "cors";
 
 import { client } from "../DB/db.js"; // your existing Mongo client
@@ -15,7 +15,19 @@ const router = express.Router();
 
 // Middlewares for general security
 router.use(helmet());
-router.use(xss());
+router.use((req, res, next) => {
+  const sanitize = (obj) => {
+    if (typeof obj !== "object" || obj === null) return obj;
+    for (const key in obj) {
+      if (typeof obj[key] === "string") obj[key] = filterXSS(obj[key]);
+      else if (typeof obj[key] === "object") sanitize(obj[key]);
+    }
+  };
+  sanitize(req.body);
+  sanitize(req.query);
+  sanitize(req.params);
+  next();
+});
 router.use(cors({
   origin: ["https://localhost:443/api/manager"], // restrict to your frontend origin(s)
 }));
@@ -114,3 +126,5 @@ router.post("/manager/login",
     }
   }
 );
+
+export default router;

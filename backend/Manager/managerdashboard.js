@@ -1,3 +1,4 @@
+//Get all users
 router.get("/users",
   authManager,
   [

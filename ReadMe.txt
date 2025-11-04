@@ -91,7 +91,7 @@ npm install
 
 **Backend Dependencies:**
 ```bash
-npm install express cors axios node-fetch dotenv uuid jsonwebtoken mongodb bcrypt https helmet fs nodemon express-validator
+npm install express cors axios node-fetch dotenv uuid jsonwebtoken mongoose bcrypt https helmet fs nodemon express-validator
 ```
 
 ### 3. Frontend Setup

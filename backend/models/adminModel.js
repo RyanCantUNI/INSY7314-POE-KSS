@@ -34,8 +34,9 @@ const adminSchema =  new mongoose.Schema({
           );
           return regex.test(v);
         },
+        
+        },
         required: true
-        }
     },
     email: {
         type: String,
@@ -47,8 +48,9 @@ const adminSchema =  new mongoose.Schema({
           return regex.test(v);
         },
     
-        unique: true
-    }
+        
+    },
+    unique: true
     },
     password: {
         //need to salt and ecypt

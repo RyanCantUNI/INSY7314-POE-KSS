@@ -23,19 +23,13 @@ const adminSchema =  new mongoose.Schema({
         required: true,
         unique: true
     },
-    name: {
+    admin_name: {
         type: String,
-        validate: {
+        //validate: {
             //regex for checking name input
-        validator: function (v) {
-          let regex = new RegExp(
-            "^(?=[a-zA-Z0-9._ ]{10,35}$)(?!.*[_.]{2})[^_.].*[^_.]$"
-            
-          );
-          return regex.test(v);
-        },
+       
         
-        },
+        //},
         required: true
     },
     email: {

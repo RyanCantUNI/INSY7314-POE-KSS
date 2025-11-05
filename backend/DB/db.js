@@ -14,12 +14,20 @@ mongoose.set("strictQuery", false);
 
 const connectToDatabase = async () => {
   try {
-    const db = await mongoose.createConnection(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      
-    });
-    console.log('Connected to MongoDB');
+    const db = await mongoose.connect(uri, {
+    useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
+
+    }).then(
+      () => {
+        console.log('Connected to MongoDB');
+      },
+      (error) => {
+        console.error('Error connecting to MongoDB:', error);
+      }
+    )
+    
     
   } catch (error) {
     console.log(error);

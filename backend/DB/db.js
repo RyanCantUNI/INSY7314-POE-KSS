@@ -12,14 +12,23 @@ mongoose.set('strictQuery', false);
 // ✅ Use mongoose.connect (not createConnection) for app-wide connection
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('✅ Connected to MongoDB');
-    return mongoose.connection; // ✅ so Jest can close it after tests
+    const db = await mongoose.connect(uri, {
+    useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
+
+    }).then(
+      () => {
+        console.log('Connected to MongoDB');
+      },
+      (error) => {
+        console.error('Error connecting to MongoDB:', error);
+      }
+    )
+    
+    
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+    console.error('MongoDB connection error:', error);
     process.exit(1);
   }
 };

@@ -1,28 +1,25 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import mongoose from 'mongoose';
 
-
+dotenv.config();
 
 // connection string
 const uri = process.env.MONGODB_URI;
 
-// connect to database
+// make Mongoose less strict with queries (optional)
+mongoose.set('strictQuery', false);
 
-
-mongoose.set("strictQuery", false);
-
+// ✅ Use mongoose.connect (not createConnection) for app-wide connection
 const connectToDatabase = async () => {
   try {
-    const db = await mongoose.createConnection(uri, {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      
     });
-    console.log('Connected to MongoDB');
-    
+    console.log('✅ Connected to MongoDB');
+    return mongoose.connection; // ✅ so Jest can close it after tests
   } catch (error) {
-    console.log(error);
+    console.error('❌ MongoDB connection error:', error);
     process.exit(1);
   }
 };

@@ -12,6 +12,8 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import fs from "fs";
+import dotenv from "dotenv";
+dotenv.config();
 
 //define server app
 const app  = express();

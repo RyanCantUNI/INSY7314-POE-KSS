@@ -10,7 +10,8 @@ function Register() {
     email: '',
     idNumber: '',
     accountNumber: '',
-    password: ''
+    password: '',
+    role: 'user' // default role
   });
 
   const handleChange = (e) => {
@@ -24,13 +25,16 @@ function Register() {
     e.preventDefault();
     setLoading(true);
 
+    const endpoint =
+      formData.role === 'admin'
+        ? 'https://localhost:443/register/admin'
+        : 'https://localhost:443/register/user';
+
     try {
-      const response = await axios.post('https://localhost:443/register', formData);
-      alert('User registered successfully!');
-     
+      const response = await axios.post(endpoint, formData);
+      alert(`${formData.role === 'admin' ? 'Admin' : 'User'} registered successfully!`);
       navigate('/login');
     } catch (error) {
-      // Only log errors in development
       if (process.env.NODE_ENV === 'development') {
         console.error('Registration error:', error);
       }
@@ -113,6 +117,41 @@ function Register() {
               />
             </div>
           ))}
+
+          {/* Role Dropdown */}
+          <div style={{ marginBottom: '25px', textAlign: 'left' }}>
+            <label
+              style={{
+                display: 'block',
+                marginBottom: '5px',
+                fontWeight: '600',
+                color: '#333'
+              }}
+            >
+              Select Role
+            </label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '10px',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                boxSizing: 'border-box',
+                backgroundColor: '#fff',
+                cursor: 'pointer',
+                transition: 'border-color 0.3s ease'
+              }}
+              onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
+              onBlur={(e) => (e.target.style.borderColor = '#ccc')}
+            >
+              <option value="user">Customer</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }}>
             <button

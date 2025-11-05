@@ -8,10 +8,10 @@ import mongoose from "mongoose";
 import { connectToDatabase } from "../DB/db.js";
 import tokenChecker from "../DB/token.js";
 
-// 1️⃣ Connect to Database
+// Connect to Database
 await connectToDatabase();
 
-// 2️⃣ Define Payment Schema
+// Define Payment Schema
 const paymentSchema = new mongoose.Schema({
   paymentID: { type: String, required: true, unique: true },
   date: { type: Date, default: Date.now },

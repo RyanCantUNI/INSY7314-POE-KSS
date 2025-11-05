@@ -34,7 +34,46 @@ import connectToDatabase from "../DB/db.js";
 //express
 import express from "express";
 
-const login = express();
+const login = express()
 
 login.use(bodyParser.json());
 
+
+login.post("/login", async (req, res) => {
+
+    const _email = req.body.email;
+    const _password = req.body.password;
+   
+
+    //we first check if the user is admin or customer
+    const admin = await Admin.findOne({email: _email});
+    const customer = await Customer.findOne({email: _email});
+
+    
+
+    if (admin){
+        const passwordMatch = await bcrypt.compare(_password, admin.password);
+        if (passwordMatch) {
+           //call admin auth to set up that stuff
+            console.log("valid admin")
+        } else {
+            res.status(401).json({ message: "Invalid credentials" });
+        }
+    }
+    else if (customer){
+        const passwordMatch = await bcrypt.compare(_password, customer.password);
+        if (passwordMatch) {
+          //call user auth to set up that stuff 
+        } else {
+            res.status(401).json({ message: "Invalid credentials" });
+        }
+    }
+    else{
+        res.status(401).json({ message: "Invalid credentials " });
+    }
+
+}
+
+)
+
+export default login

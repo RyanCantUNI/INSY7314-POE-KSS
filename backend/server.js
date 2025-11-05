@@ -24,6 +24,7 @@ import connectToDatabase from "./DB/db.js";
 //import getlogs from "./Payments/logs.js"
 import register from "./Auth/register.js"
 //import managerAuth from "./Auth/managerAuth.js";
+import login from "./User/login.js";
 
 app.use(express.json());
 //app.use("/api/manager", managerAuth);
@@ -41,6 +42,7 @@ app.use(express.json());
 
 //app.use(login);
 app.use(register);
+app.use(login);
 
 //configure security 
 app.use(helmet());

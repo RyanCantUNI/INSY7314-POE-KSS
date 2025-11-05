@@ -9,23 +9,28 @@ router.get("/users",
     const page = req.query.page || 1;
     const limit = req.query.limit || 25;
     const skip = (page - 1) * limit;
+
     try {
+      // exclude sensitive password data
       const cursor = users.find({}, { projection: { passwordHash: 0 } }).skip(skip).limit(limit);
       const docs = await cursor.toArray();
-      // Decrypt PII for manager view
-      const results = docs.map(doc => ({
-        id: doc._id,
+
+      // decrypt sensitive fields for manager visibility
+      const decryptedUsers = docs.map(doc => ({
+        _id: doc._id,
         uuid: doc.uuid,
         fullName: doc.fullName,
         email: doc.email,
         idNumber: decryptField(doc.idNumber),
         accountNumber: decryptField(doc.accountNumber),
-        createdAt: doc.createdAt,
+        createdAt: doc.createdAt
       }));
-      return res.json({ page, limit, results });
+
+      // Return a flat array (frontend can consume directly)
+      return res.json(decryptedUsers);
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Server error" });
+      console.error("Error fetching users:", err);
+      return res.status(500).json({ message: "Server error while fetching users" });
     }
   }
 );

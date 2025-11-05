@@ -83,6 +83,9 @@ git clone <repository-url>
 cd insy7314-part2-ksb
 ```
 
+gloal setup
+npm i nodemon concurrently
+
 ### 2. Backend Setup
 ```bash
 cd backend
@@ -118,17 +121,8 @@ NODE_ENV=development
 
 ### Starting the Application
 
-1. **Start the Backend Server**
-   ```bash
-   cd backend
-   npm start
-   ```
-
-2. **Start the Frontend Development Server**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
+1. **starting the application**
+npm run both 
 
 3. **Access the Application**
    - **Frontend**: http://localhost:443

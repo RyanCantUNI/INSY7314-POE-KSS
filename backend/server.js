@@ -1,4 +1,8 @@
 
+
+//alot of the scripting tricks was learnt through this program: https://github.com/mostafakamal22/Sprints-MERN-E-Banking-System/blob/main/package.json
+
+
 //using 443 for the https standard 
 const port = 443
 

@@ -27,10 +27,13 @@ function Register() {
     try {
       const response = await axios.post('https://localhost:443/register', formData);
       alert('User registered successfully!');
-      console.log('Registration response:', response.data);
+     
       navigate('/login');
     } catch (error) {
-      console.error('Registration error:', error);
+      // Only log errors in development
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Registration error:', error);
+      }
 
       if (error.response) {
         alert(`Registration failed: ${error.response.data.message || error.response.data}`);

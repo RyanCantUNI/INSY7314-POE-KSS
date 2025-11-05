@@ -6,7 +6,7 @@ import Register from './components/register';
 import Payment from './components/payment';
 import Logs from './components/logs';
 
-// 🎨 Updated Landing (Index) Page
+//  Updated Landing (Index) Page
 function Index() {
   const navigate = useNavigate();
 

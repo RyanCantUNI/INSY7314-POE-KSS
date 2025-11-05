@@ -29,17 +29,15 @@ function Login() {
     axios.post("https://localhost:443/login", user)
       .then((response) => {
         alert("Login successful!");
-        const data = response.data;
-        //console.log(data); --used for debugging
-
+        // Store UUID directly without intermediate variable
         localStorage.setItem("userID", response.data.UUID);
-        //console.log(response.data.userID); -- used for debugging
-        
         navigate("/payment");
       })
       .catch((error) => {
         alert("Login failed. Please check your credentials.");
-        console.error("Login error:", error);
+        if (process.env.NODE_ENV === 'development') {
+          console.error("Login error:", error);
+        }
       });
   };
 

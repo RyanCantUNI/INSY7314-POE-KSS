@@ -2,13 +2,13 @@
   "name": "kss_insy714_part_2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "cd frontend/src/App.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "both": "concurrently \"npm:dev\" \"npm:dev2\"",
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
-    "dev2": "cd frontend && npm run dev"
+    "dev2": "cd frontend && npm start"
   },
   "repository": {
     "type": "git",

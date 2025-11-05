@@ -20,26 +20,26 @@ const app  = express();
 
 //modules to go here
 import connectToDatabase from "./DB/db.js";
-import makePayment from "./Payments/payment.js"
-import getlogs from "./Payments/logs.js"
+//import makePayment from "./Payments/payment.js"
+//import getlogs from "./Payments/logs.js"
 import register from "./Auth/register.js"
-import managerAuth from "./Auth/managerAuth.js";
+//import managerAuth from "./Auth/managerAuth.js";
 
 app.use(express.json());
-app.use("/api/manager", managerAuth);
+//app.use("/api/manager", managerAuth);
 
 //test
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+//const PORT = process.env.PORT || 5000;
+//app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 //setting server to use json parser
 app.use(express.json());
 
 //user modules here
-app.use(makePayment);
-app.use(getlogs);
+//app.use(makePayment);
+//app.use(getlogs);
 
-app.use(login);
+//app.use(login);
 app.use(register);
 
 //configure security 

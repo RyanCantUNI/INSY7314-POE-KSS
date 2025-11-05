@@ -11,7 +11,7 @@ customer {
 */
 
 //for data definition language 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 //db schema 
 const customerSchema = new mongoose.Schema({
@@ -63,4 +63,6 @@ const customerSchema = new mongoose.Schema({
 
 //variable to contain our schema --like a model class in mvc
 const customerModel = mongoose.model("customer", customerSchema);
+
+
 export default customerModel

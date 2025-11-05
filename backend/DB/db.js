@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import mongoose from 'mongoose';
 
+
+
 // connection string
 const uri = process.env.MONGODB_URI;
 
@@ -15,7 +17,9 @@ const connectToDatabase = async () => {
     const db = await mongoose.createConnection(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      
     });
+    console.log('Connected to MongoDB');
     
   } catch (error) {
     console.log(error);

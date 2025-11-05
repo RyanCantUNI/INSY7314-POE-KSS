@@ -13,8 +13,7 @@ payment {
 
 
 //for data definition language 
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 //TO:DO and more ECC
 //db schema 
 const paymentSchema = new mongoose.Schema({

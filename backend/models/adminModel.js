@@ -11,15 +11,15 @@ Admind :{
 */
 
 //for data definition language 
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 //db schema
 
 //TO:DO and more ECC
 const adminSchema =  new mongoose.Schema({
     id: {
         //auto generated 
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+
         required: true,
         unique: true
     },

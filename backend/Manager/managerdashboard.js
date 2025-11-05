@@ -1,4 +1,13 @@
-// Get all users - returns array for frontend
+// managerdashboard.js - Get all users for manager dashboard
+import express from "express";
+import { query, param } from "express-validator";
+import { ObjectId } from "mongodb";
+import { authManager } from "../Auth/managerAuth.js";
+import { connectToDatabase } from "../DB/db.js";
+
+const router = express.Router();
+
+// Get all users
 router.get("/users",
   authManager,
   [
@@ -11,14 +20,10 @@ router.get("/users",
     const skip = (page - 1) * limit;
     
     try {
-      // Get total count for pagination
-      const totalUsers = await users.countDocuments({});
-      const totalPages = Math.ceil(totalUsers / limit);
-      
       const cursor = users.find({}, { projection: { passwordHash: 0 } }).skip(skip).limit(limit);
       const docs = await cursor.toArray();
       
-      // Transform data for frontend HTML table
+      // Transform data
       const userList = docs.map(doc => ({
         id: doc._id.toString(),
         uuid: doc.uuid,
@@ -31,26 +36,50 @@ router.get("/users",
         role: doc.role || 'user'
       }));
       
-      // Return as array with pagination info
-      return res.json({
-        success: true,
-        data: userList, // This is the array frontend needs
-        pagination: {
-          page,
-          limit,
-          totalUsers,
-          totalPages,
-          hasNext: page < totalPages,
-          hasPrev: page > 1
-        }
-      });
+      // Return clean array ONLY - no extra metadata
+      return res.json(userList);
       
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ 
-        success: false,
-        message: "Server error" 
-      });
+      console.error("Error fetching users:", err);
+      return res.status(500).json({ message: "Error retrieving users." });
+    }
+  }
+);
+
+// GET /manager/users/:id - Get single user by ID
+router.get("/users/:id",
+  authManager,
+  [ param("id").isMongoId() ],
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const user = await users.findOne(
+        { _id: new ObjectId(id) },
+        { projection: { passwordHash: 0 } }
+      );
+      
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      // Return single user object in array format for consistency
+      const userData = {
+        id: user._id.toString(),
+        uuid: user.uuid,
+        fullName: user.fullName || 'N/A',
+        email: user.email || 'N/A',
+        idNumber: decryptField(user.idNumber) || 'N/A',
+        accountNumber: decryptField(user.accountNumber) || 'N/A',
+        createdAt: user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A',
+        status: user.status || 'active',
+        role: user.role || 'user'
+      };
+
+      return res.json([userData]); // Return as array with single item
+      
+    } catch (err) {
+      console.error("Error fetching user:", err);
+      return res.status(500).json({ message: "Error retrieving user." });
     }
   }
 );
@@ -62,27 +91,17 @@ router.delete("/users/:id",
   async (req, res) => {
     try {
       const id = req.params.id;
-      const result = await users.deleteOne({ _id: new (require("mongodb")).ObjectId(id) });
+      const result = await users.deleteOne({ _id: new ObjectId(id) });
       
       if (result.deletedCount === 0) {
-        return res.status(404).json({ 
-          success: false,
-          message: "User not found" 
-        });
+        return res.status(404).json({ message: "User not found." });
       }
       
-      return res.json({ 
-        success: true,
-        message: "User deleted successfully",
-        deletedId: id // Frontend can use this to update UI
-      });
+      return res.json({ message: "User deleted successfully." });
       
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ 
-        success: false,
-        message: "Server error" 
-      });
+      console.error("Error deleting user:", err);
+      return res.status(500).json({ message: "Error deleting user." });
     }
   }
 );

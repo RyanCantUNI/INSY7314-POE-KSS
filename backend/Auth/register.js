@@ -6,7 +6,7 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import mongoose from "mongoose";
-import { connectToDatabase } from "../DB/db.js";
+import  connectToDatabase  from "../DB/db.js";
 
 // Connect to MongoDB (reuse existing connection)
 await connectToDatabase();

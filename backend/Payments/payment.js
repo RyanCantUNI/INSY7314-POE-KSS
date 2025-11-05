@@ -5,7 +5,7 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import cors from "cors";
 import mongoose from "mongoose";
-import { connectToDatabase } from "../DB/db.js";
+import  connectToDatabase  from "../DB/db.js";
 import tokenChecker from "../DB/token.js";
 
 // Connect to Database

@@ -10,7 +10,7 @@ import helmet from "helmet";
 import { filterXSS } from "xss";
 import cors from "cors";
 import mongoose from "mongoose";
-import { connectToDatabase } from "../DB/db.js";
+import  connectToDatabase  from "../DB/db.js";
 
 // connect to MongoDB
 await connectToDatabase();

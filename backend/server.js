@@ -19,7 +19,7 @@ dotenv.config();
 const app  = express();
 
 //modules to go here
-import {connectToDatabase} from "./DB/db.js";
+import connectToDatabase from "./DB/db.js";
 import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
 import register from "./Auth/register.js"

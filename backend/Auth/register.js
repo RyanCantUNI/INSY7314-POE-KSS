@@ -80,6 +80,97 @@ user.use(bodyParser.json())
 
 //delet acount
 
+//register standard user 
+user.post("/register/customer", async (req, res) => {
+    try{
+        /*
+        id: String,
+        name: String,
+        email: String,
+        password: String,
+        role: String}
+        */
+        //encrypting and salting password
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const customerName = req.body.name
+    
+        const _id = new mongoose.Types.ObjectId();
+        //check sum to see if user already exists
+         const doesEmailExist = await Admin.findOne({ email: req.body.email });
+         if (doesEmailExist) {
+            return res.status(400).json({ message: "Email already exists" });
+          }
+          else{
+            const emailIn = req.body.email
+          }
+        //creating new admin entry 
+        const customer = new Customer({
+            id: _id,
+            customer_name: customerName,
+            email: emailIn,
+            password: hashedPassword,
+            role: "customer"
+    })
+        //push to db
+        await customer.save();
+    
+        
+        res.status(201).json({ message: "Customer registered successfully" });
+        console.log(customer)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+//register admin user
+user.post("/register/admin", async (req, res) => {
+    try{
+        /*
+        id: String,
+        name: String,
+        email: String,
+        password: String,
+        role: String}
+        */
+        //encrypting and salting password
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const adminName = req.body.name
+       
+        const _id = new mongoose.Types.ObjectId();
+
+        //check sum to see if user already exists
+         const doesEmailExist = await Admin.findOne({ email: req.body.email });
+         if (doesEmailExist) {
+            return res.status(400).json({ message: "Email already exists" });
+          }
+          else{
+            const emailIn = req.body.email
+          }
+        //creating new admin entry 
+        const admin = new Admin({
+            id: _id,
+            admin_name: adminName,
+            email: emailIn,
+            password: hashedPassword,
+            role: "admin"
+
+        })
+        //push to db
+        await admin.save();
+    
+        
+        res.status(201).json({ message: "Admin registered successfully" });
+        console.log(admin)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
 export default user

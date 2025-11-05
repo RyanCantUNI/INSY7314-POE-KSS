@@ -1,47 +1,64 @@
-//here we just get all payments by UID 
+// logs.js — Get all payments by user ID
 
-//plugins
 import express from "express";
-import bodyParser from "body-parser";
+import helmet from "helmet";
+import cors from "cors";
+import rateLimit from "express-rate-limit";
+import mongoose from "mongoose";
+import { connectToDatabase } from "../DB/db.js";
 import tokenChecker from "../DB/token.js";
 
+// Connect to MongoDB (reuse connection if already connected)
+await connectToDatabase();
 
-//db client 
-import { client } from "../DB/db.js";
-import { get } from "https";
+// Define Payment Schema (same as in payment.js — keep consistent)
+const paymentSchema = new mongoose.Schema({
+  paymentID: { type: String, required: true, unique: true },
+  date: { type: Date, default: Date.now },
+  userID: { type: String, required: true },
+  amount: { type: Number, required: true },
+  providerAccount: { type: String, required: true },
+  currency: { type: String, required: true },
+  SWIFTCode: { type: String, required: true },
+  status: { type: String, default: "Completed" },
+});
 
-//useable variables for automation
+// Reuse or create the model
+const Payment = mongoose.models.Payment || mongoose.model("Payment", paymentSchema);
 
-//users collection 
-const users = client.db("APDS")
+const router = express.Router();
 
-//payments collection 
-let payments = users.collection("payments")
-//jwt token with our logged in UID
+// Middleware setup
+router.use(express.json());
+router.use(helmet());
+router.use(
+  cors({
+    origin: ["https://localhost:443"],
+  })
+);
+router.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200,
+    message: { message: "Too many log requests, try again later." },
+  })
+);
 
+// Route: Get all payments for a given user ID
+router.get("/logs/:id", tokenChecker, async (req, res) => {
+  try {
+    const userID = req.params.id;
+    const logs = await Payment.find({ userID }).sort({ date: -1 });
 
-//modules setup
-
-const getLogs = express()
-
-//this id is also UID
-
-getLogs.get('/logs:id', 
-    //tokenChecker, 
-    async (req, res) => {
-    try {
-        //get all payments containing our UID
-        const id = req.params.id.replace(":", "")
-        //console.log(id) --used for debugging
-        const logs = await payments.find({ userID: id}).toArray()
-        //console.log(logs) --used for debugging
-        res.status(200).send(logs)
+    if (!logs || logs.length === 0) {
+      return res.status(404).json({ message: "No payment logs found for this user." });
     }
-    catch (err) {
-        console.log("Error getting data from database: ", err);
-        res.status(500).send("Error getting data from database");
-    }
-}
-)
 
-export default getLogs
+    return res.status(200).json(logs);
+  } catch (error) {
+    console.error("Error fetching logs:", error);
+    return res.status(500).json({ message: "Error retrieving payment logs." });
+  }
+});
+
+export default router;

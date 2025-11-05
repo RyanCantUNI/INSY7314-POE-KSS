@@ -29,6 +29,7 @@ The platform prioritizes cybersecurity best practices and implements enterprise-
 - **Secure User Authentication**: Registration and login with bcrypt password hashing and salting
 - **International Payments**: Complete payment submission and verification workflow
 - **Employee Portal**: Transaction validation and SWIFT network integration
+- **Manager Dashboard**: Real-time statistics, logs, and analytics.
 - **Payment History**: Comprehensive transaction logging and audit trails
 
 ### Security Features
@@ -40,6 +41,7 @@ The platform prioritizes cybersecurity best practices and implements enterprise-
 
 ### Technical Features
 - **RESTful API**: Clean backend communication architecture
+- **Manager dashboard**: With data summaries and recent activity
 - **Responsive Design**: Modern UI with Tailwind CSS
 - **Real-time Updates**: Dynamic payment status tracking
 - **Cross-platform Compatibility**: Works across different browsers and devices
@@ -67,6 +69,8 @@ Before you begin, ensure you have the following installed:
 - **Express.js** - Web application framework
 - **MongoDB** - NoSQL database
 - **Mongoose** - MongoDB object modeling
+- **Helmet, CORS, XSS-Clean**
+- **JWT, Bcrypt, Express-Validator**
 
 ### Security & Tools
 - **Bcrypt** - Password hashing
@@ -80,7 +84,7 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd insy7314-part2-ksb
+cd insy7314-poe-kss
 ```
 
 gloal setup
@@ -94,7 +98,7 @@ npm install
 
 **Backend Dependencies:**
 ```bash
-npm install express cors axios node-fetch dotenv uuid jsonwebtoken mongoose bcrypt https helmet fs nodemon express-validator
+npm install express cors dotenv helmet cookie-parser uuid bcrypt jsonwebtoken express-validator xss-clean express-rate-limit
 ```
 
 ### 3. Frontend Setup
@@ -130,10 +134,9 @@ npm run both
 
 ### Using the Application
 
-1. **User Registration/Login**
-   - Navigate to the registration page
-   - Create a new account with secure credentials
+1. **Manager Login**
    - Log in to access the payment system
+   - Managers can create, edit, and delete users
 
 2. **Making Payments**
    - Access the payment interface
@@ -151,9 +154,8 @@ https://youtu.be/A3Qa2oGa7_8
 ##  API Documentation
 
 ### Authentication Endpoints
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User authentication
-- `POST /api/auth/logout` - User logout
+- `POST /api/auth/login` - Manager authentication
+- `POST /api/auth/logout` - Manager logout
 
 ### Payment Endpoints
 - `POST /api/payments` - Create new payment

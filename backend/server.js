@@ -20,7 +20,6 @@ const app  = express();
 import {connectToDatabase} from "./DB/db.js";
 import makePayment from "./Payments/payment.js"
 import getlogs from "./Payments/logs.js"
-import login from "./Auth/login.js"
 import register from "./Auth/register.js"
 import managerAuth from "./Auth/managerAuth.js";
 

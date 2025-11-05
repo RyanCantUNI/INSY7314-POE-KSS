@@ -1,3 +1,0 @@
-/*
-This class will handle manger login and auth
-*/

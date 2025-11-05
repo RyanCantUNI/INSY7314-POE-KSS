@@ -20,14 +20,15 @@ const app  = express();
 
 //modules to go here
 import connectToDatabase from "./DB/db.js";
-//import makePayment from "./Payments/payment.js"
-//import getlogs from "./Payments/logs.js"
+import logs from "./Payments/logs.js";
+import payments from "./Payments/payment.js";
 import register from "./Auth/register.js"
-//import managerAuth from "./Auth/managerAuth.js";
+
 import login from "./User/login.js";
 
+
 app.use(express.json());
-//app.use("/api/manager", managerAuth);
+
 
 //test
 //const PORT = process.env.PORT || 5000;
@@ -36,22 +37,23 @@ app.use(express.json());
 //setting server to use json parser
 app.use(express.json());
 
-//user modules here
-//app.use(makePayment);
-//app.use(getlogs);
 
-//app.use(login);
 app.use(register);
 app.use(login);
+app.use(payments);
+app.use(logs);  
 
 //configure security 
 app.use(helmet());
 
+const _private ="./key/privatekey.pem"
+const _cert = "./key/certificate.pem"
+
 //configure server to use https
 const server = http.createServer(
 {
-    key: fs.readFileSync("/key/privatekey.pem"),
-    cert: fs.readFileSync("/key/certificate.pem"),
+    key: fs.readFileSync(_private, "utf8"),
+    cert: fs.readFileSync(_cert, "utf8"),
 },
 app
 )

@@ -1,0 +1,3 @@
+/*
+ this can get all payments or payments by customer ID
+*/

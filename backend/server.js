@@ -50,8 +50,8 @@ app.use(helmet());
 //configure server to use https
 const server = http.createServer(
 {
-    key: fs.readFileSync("../key/privatekey.pem"),
-    cert: fs.readFileSync("../key/certificate.pem"),
+    key: fs.readFileSync("/key/privatekey.pem"),
+    cert: fs.readFileSync("/key/certificate.pem"),
 },
 app
 )

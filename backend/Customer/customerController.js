@@ -1,3 +1,3 @@
 /*
-summary: this class will handle customer login and auth
+summary: this class will handle customer auth token checks
 */

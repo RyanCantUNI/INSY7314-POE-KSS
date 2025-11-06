@@ -3,6 +3,9 @@ node_modules/
 /.pnp
 .pnp.js
 
+#private key
+key/privatekey.pem
+
 # Testing
 coverage/
 *.lcov

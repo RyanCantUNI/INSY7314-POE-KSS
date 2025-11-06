@@ -81,7 +81,6 @@ function Dashboard() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#f2f2f2' }}>
-                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>ID</th>
                         <th style={{ padding: '10px', border: '1px solid #ddd' }}>Name</th>
                         <th style={{ padding: '10px', border: '1px solid #ddd' }}>Email</th>
                     </tr>
@@ -89,7 +88,6 @@ function Dashboard() {
                 <tbody>
                     {admins.map((admin) => (
                         <tr key={admin.id}>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.id}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.admin_name}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.email}</td>
                         </tr>

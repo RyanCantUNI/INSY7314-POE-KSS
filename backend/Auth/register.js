@@ -222,6 +222,25 @@ user.get("/getuser/customer", async (req, res) => {
 
 
 //delete account 
+//find user account by id then delete it
+user.delete("deletuser:id",async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const _admin = await Admin.findByIdAndDelete(userId);
+        const _customer = await Customer.findByIdAndDelete(userId);
+        if (!_admin && !_customer) {
+            return res.status(404).json({ message: "User not found" });
+        }
+       
+        res.json({ message: "User deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+
 
 
 

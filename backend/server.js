@@ -27,12 +27,15 @@ import register from "./Auth/register.js"
 import login from "./User/login.js";
 
 
+//connection handlers
+import limter from "./cors/ratelimiter.js"
+import  {corsDevOptions,corsProOptions} from "./cors/corsConf.js";
+
+
 app.use(express.json());
 
 
-//test
-//const PORT = process.env.PORT || 5000;
-//app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 //setting server to use json parser
 app.use(express.json());
@@ -45,6 +48,8 @@ app.use(logs);
 
 //configure security 
 app.use(helmet());
+
+//configure cors
 
 const _private ="./key/privatekey.pem"
 const _cert = "./key/certificate.pem"
@@ -63,6 +68,10 @@ app.use((_, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "*");
     next();
 });
+
+//cors middleware
+app.use(limter);
+app.use(cors(corsDevOptions));
 
 
 //setting up x-frame for clickjacking and cross site scripting

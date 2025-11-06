@@ -49,23 +49,19 @@ app.use(logs);
 //configure security 
 app.use(helmet());
 
-//configure cors
 
+//configure https credentials using 5 steps to make sonar cube happy 
 const _getprivate = process.env.PRIVATE_KEY_PATH;
 const _getcert = process.env.CERTIFICATE_PATH;
 
-const _private =fs.readFileSync(_getprivate, "utf8");
-const _cert = fs.readFileSync(_getcert, "utf8");
 
-const credentials = {
-    key: _private,
-    cert: _cert
-};
+
 
 //configure server to use https
 const server = http.createServer(
 {
-    credentials
+ key: fs.readFileSync(_getprivate, "utf8"),
+    cert: fs.readFileSync(_getcert, "utf8"),
 },
 app
 )

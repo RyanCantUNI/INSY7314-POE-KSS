@@ -18,6 +18,8 @@ import mongoose from "mongoose";
 //json parsing
 import bodyParser from "body-parser";
 
+
+
 //bycrypt for encryption
 import bcrypt from "bcrypt";
 
@@ -31,6 +33,9 @@ import { userToken, generateAdminsToken } from "../DB/token.js";
 //express
 import express from "express";
 
+//input sanitation
+import { body, validationResult } from "express-validator";
+
 const login = express()
 
 login.use(bodyParser.json());
@@ -42,7 +47,11 @@ const comparePassword = async (password, hashedPassword) => {
 
 
 
-login.post("/login", async (req, res) => {
+login.post("/login", [
+    //sanitize inputs
+     body("email").isEmail(),
+    body("password").isLength({ min: 8 })],
+  async (req, res) => {
     let passwordMatch = false
 
     const _email = {email: req.body.email.toString()};

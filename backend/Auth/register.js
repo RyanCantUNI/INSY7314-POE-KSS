@@ -188,7 +188,7 @@ user.post("/register/admin",
 
 
 //get all admins
-user.get("/getuser", async (req, res) => {
+user.get("/getuser", async (_, res) => {
     try {
         const users = await Admin.find();
         const customer = await Customer.find();

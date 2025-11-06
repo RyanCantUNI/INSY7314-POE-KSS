@@ -16,10 +16,10 @@ function Dashboard() {
         //get token
         const token = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        axios.get("https://localhost:443/dashboard:" + loginID)
+        axios.get("https://localhost:443/getuser")
             .then((response) => {
-                setCustomers(response.data);
-                setAdmins(response.data);
+                setCustomers(response.data.customers);
+                setAdmins(response.data.admins);
             })
             .catch((error) => {
                 console.error("Error fetching users:", error);
@@ -66,9 +66,9 @@ function Dashboard() {
                 <tbody>
                     {customers.map((customer) => (
                         <tr key={customer.id}>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.idNumber}</td>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.accountName}</td>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.accountNumber}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.national_Id}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.account}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.bankaccountnumber}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.name}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.email}</td>
                         </tr>
@@ -89,8 +89,8 @@ function Dashboard() {
                 <tbody>
                     {admins.map((admin) => (
                         <tr key={admin.id}>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.idNumber}</td>
-                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.name}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.id}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.admin_name}</td>
                             <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.email}</td>
                         </tr>
                     ))}

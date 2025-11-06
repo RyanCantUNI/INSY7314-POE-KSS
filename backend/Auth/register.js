@@ -84,15 +84,31 @@ user.use(bodyParser.json())
 user.post("/register/customer", async (req, res) => {
     try{
         /*
-        id: String,
-        name: String,
-        email: String,
-        password: String,
-        role: String}
+       customer {
+id:
+
+national_Id
+
+bankaccount
+
+accountnumber
+
+customer_name
+
+email
+
+password
+
+role
+
+}
         */
         //encrypting and salting password
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const customerName = req.body.name
+        const _national_Id = req.body.national_Id
+        const _bankaccount = req.body.bankaccount
+        const _accountnumber = req.body.accountnumber
     
         const _id = new mongoose.Types.ObjectId();
         let emailIn = ""
@@ -108,6 +124,9 @@ user.post("/register/customer", async (req, res) => {
         const customer = new Customer({
             id: _id,
             customer_name: customerName,
+            national_Id: _national_Id,
+            bankaccount: _bankaccount,
+            accountnumber: _accountnumber,
             email: emailIn,
             password: hashedPassword,
             role: "customer"

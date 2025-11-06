@@ -21,12 +21,9 @@ import bodyParser from "body-parser";
 //bycrypt for encryption
 import bcrypt from "bcrypt";
 
-//auth checks
-import jwt from "jsonwebtoken";
+//token builder
 
 
-//mongo connection 
-import connectToDatabase from "../DB/db.js";
 
 
 

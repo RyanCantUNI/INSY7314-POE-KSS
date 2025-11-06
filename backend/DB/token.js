@@ -1,7 +1,7 @@
 //token handlers modules 
 import jwt from "jsonwebtoken";
 
-const userToken = (id ,email)=>
+export const userToken = (id ,email)=>
 {
 
     //creates base user token with no permissions 
@@ -15,7 +15,7 @@ const userToken = (id ,email)=>
 }
 
 
-const generateAdminsToken = (id, email, role) => {
+export const generateAdminsToken = (id, email, role) => {
 
     /*
     for signed users with access rolls
@@ -28,4 +28,3 @@ const generateAdminsToken = (id, email, role) => {
   return jwt.sign({ id, email, role }, process.env.JWT_SECRET);
 };
 
-export default {userToken, generateAdminsToken}

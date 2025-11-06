@@ -112,8 +112,9 @@ role
     
         const _id = new mongoose.Types.ObjectId();
         let emailIn = ""
+        let _emailcheck = req.body.email
         //check sum to see if user already exists
-         const doesEmailExist = await Admin.findOne({ email: req.body.email });
+         const doesEmailExist = await Admin.findOne({ _emailcheck});
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }
@@ -162,8 +163,9 @@ user.post("/register/admin", async (req, res) => {
        
         const _id = new mongoose.Types.ObjectId();
         let emailIn
+        let _emailcheck = req.body.email
         //check sum to see if user already exists
-         const doesEmailExist = await Admin.findOne({ email: req.body.email });
+         const doesEmailExist = await Admin.findOne({ _emailcheck});
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }

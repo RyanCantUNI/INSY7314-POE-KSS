@@ -173,4 +173,23 @@ user.post("/register/admin", async (req, res) => {
 });
 
 
+
+//get all users 
+user.get("/users", async (req, res) => {
+    try {
+        const users = await Admin.find();
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+
+
+//delete account 
+
+
+
 export default user

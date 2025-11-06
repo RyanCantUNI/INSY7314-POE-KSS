@@ -3,11 +3,25 @@ class summary
 this is a template class for customer users in the mongo
 like mvc same same but different 
 customer {
-    id: String,
-    name: String,
-    email: String,
-    password: String,
-    role: String}
+d:
+
+national_Id
+
+bankaccount
+
+accountnumber
+
+customer_name
+
+email
+
+password
+
+role
+
+}
+
+
 */
 
 //for data definition language 
@@ -34,6 +48,21 @@ const customerSchema = new mongoose.Schema({
         
     },
     required: true
+    },
+    national_Id: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    bankaccountnumber: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    account: {
+        type: String,
+        required: true,
+        unique: true
     },
     email: {
         type: String,

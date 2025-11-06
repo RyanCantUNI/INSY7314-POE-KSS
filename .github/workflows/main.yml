@@ -73,6 +73,8 @@ jobs:
       
       - name: Run frontend tests
         working-directory: ./frontend
+        env:
+          CI: true
         run: npm test -- --coverage --watchAll=false
       
       - name: Upload frontend coverage
@@ -85,6 +87,8 @@ jobs:
       
       - name: Build frontend
         working-directory: ./frontend
+        env:
+          CI: true
         run: npm run build
         continue-on-error: true
 

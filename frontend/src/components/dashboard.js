@@ -56,7 +56,7 @@ function Dashboard() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                     <tr style={{ backgroundColor: '#f2f2f2' }}>
-                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>ID</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>National ID</th>
                         <th style={{ padding: '10px', border: '1px solid #ddd' }}>Bank Account</th>
                         <th style={{ padding: '10px', border: '1px solid #ddd' }}>Account Number</th>
                         <th style={{ padding: '10px', border: '1px solid #ddd' }}>Name</th>

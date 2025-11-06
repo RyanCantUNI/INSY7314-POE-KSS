@@ -4,7 +4,7 @@
   "description": "",
   "main": "cd frontend/src/App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test -w backend && npm run test -w frontend",
     "both": "concurrently \"npm:dev\" \"npm:dev2\"",
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",

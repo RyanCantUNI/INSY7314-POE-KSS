@@ -31,7 +31,7 @@ function Register() {
         : 'https://localhost:443/register/user';
 
     try {
-      const response = await axios.post(endpoint, formData);
+      await axios.post(endpoint, formData);
       alert(`${formData.role === 'admin' ? 'Admin' : 'User'} registered successfully!`);
       navigate('/login');
     } catch (error) {

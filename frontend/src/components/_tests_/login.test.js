@@ -33,7 +33,6 @@ describe('Login Component', () => {
       renderLogin();
       
       expect(screen.getByRole('heading', { name: /login/i })).toBeInTheDocument();
-      expect(screen.getByPlaceholderText(/account number/i)).toBeInTheDocument();
       expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
       expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /^login$/i })).toBeInTheDocument();
@@ -44,15 +43,12 @@ describe('Login Component', () => {
     it('updates form fields when user types', () => {
       renderLogin();
       
-      const accountInput = screen.getByPlaceholderText(/account number/i);
       const emailInput = screen.getByPlaceholderText(/email/i);
       const passwordInput = screen.getByPlaceholderText(/password/i);
       
-      fireEvent.change(accountInput, { target: { value: '123456' } });
       fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
       fireEvent.change(passwordInput, { target: { value: 'password123' } });
       
-      expect(accountInput).toHaveValue('123456');
       expect(emailInput).toHaveValue('test@example.com');
       expect(passwordInput).toHaveValue('password123');
     });
@@ -63,6 +59,7 @@ describe('Login Component', () => {
       const mockResponse = {
         data: {
           UUID: 'test-uuid-123',
+          role: 'customer',
           message: 'Successfully logged in'
         }
       };
@@ -71,12 +68,10 @@ describe('Login Component', () => {
       
       renderLogin();
       
-      const accountInput = screen.getByPlaceholderText(/account number/i);
       const emailInput = screen.getByPlaceholderText(/email/i);
       const passwordInput = screen.getByPlaceholderText(/password/i);
       const submitButton = screen.getByRole('button', { name: /^login$/i });
       
-      fireEvent.change(accountInput, { target: { value: '123456' } });
       fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
       fireEvent.change(passwordInput, { target: { value: 'password123' } });
       fireEvent.click(submitButton);
@@ -88,7 +83,6 @@ describe('Login Component', () => {
       expect(axios.post).toHaveBeenCalledWith(
         'https://localhost:443/login',
         expect.objectContaining({
-          accountNumber: '123456',
           email: 'test@example.com',
           password: 'password123'
         })
@@ -108,12 +102,10 @@ describe('Login Component', () => {
       
       renderLogin();
       
-      const accountInput = screen.getByPlaceholderText(/account number/i);
       const emailInput = screen.getByPlaceholderText(/email/i);
       const passwordInput = screen.getByPlaceholderText(/password/i);
       const submitButton = screen.getByRole('button', { name: /^login$/i });
       
-      fireEvent.change(accountInput, { target: { value: '123456' } });
       fireEvent.change(emailInput, { target: { value: 'wrong@example.com' } });
       fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
       fireEvent.click(submitButton);

@@ -54,7 +54,11 @@ _account_paid_to = req.body.account_paid_to
 _accountName = req.body.accountName
 _branchCode = req.body.branchCode
 _SwiftID = req.body.SwiftID
+
+//date time now
 _date = req.body.date
+
+//customer id in the token
 _customer_id = req.body.customer_id
 
  let payment = new Payment({

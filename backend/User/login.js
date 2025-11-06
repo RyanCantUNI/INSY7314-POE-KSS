@@ -56,6 +56,9 @@ login.post("/login", async (req, res) => {
         if (passwordMatch) {
            //call admin auth to set up that stuff
             console.log("valid admin")
+            //return user role
+            res.status(200).json({ role: "admin" });
+          
         } else {
             res.status(401).json({ message: "Invalid credentials" });
         }
@@ -64,6 +67,10 @@ login.post("/login", async (req, res) => {
         const passwordMatch = await bcrypt.compare(_password, customer.password);
         if (passwordMatch) {
           //call user auth to set up that stuff 
+
+
+          //return user role
+            res.status(200).json({ role: "customer" });
         } else {
             res.status(401).json({ message: "Invalid credentials" });
         }

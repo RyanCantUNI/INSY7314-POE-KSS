@@ -53,6 +53,8 @@ function Index() {
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
             onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
+            onFocus={e => (e.target.style.backgroundColor = '#1a5fd1')} 
+            onBlur={e => (e.target.style.backgroundColor = '#2575fc')}  
           >
             Register
           </button>
@@ -72,6 +74,8 @@ function Index() {
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
             onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
+            onFocus={e => (e.target.style.backgroundColor = '#e0e0e0')}
+            onBlur={e => (e.target.style.backgroundColor = '#f0f0f0')}
           >
             Login
           </button>

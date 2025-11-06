@@ -23,6 +23,10 @@ import connectToDatabase from "../DB/db.js";
 
 //express stuff 
 import express from "express";
+
+//input sanitation
+import { body, validationResult } from "express-validator";
+
 const payment = express();
 
 payment.use(bodyParser.json());
@@ -44,7 +48,15 @@ date
 
 customer_id*/
 
-payment.post("/payment/:id", async (req, res) => {
+payment.post("/payment/:id",[
+
+      //sanitation of inputs
+      body("ammount").isFloat({ gt: 0 }),
+      body("account_paid_to").isLength({ min: 8, max: 20 }),
+      body("accountName").notEmpty(),
+      body("branchCode").isLength({ min: 4, max: 6 }),
+      body("SwiftID").optional().isLength({ min: 8, max: 11 })
+], async (req, res) => {
 
    //current time
    const time = new Date().toISOString().split('T')[0];

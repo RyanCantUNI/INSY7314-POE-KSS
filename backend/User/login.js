@@ -48,7 +48,7 @@ const comparePassword = async (password, hashedPassword) => {
 
 
 login.post("/login", [
-    //sanitize inputs
+    //sanitation of inputs
      body("email").isEmail(),
     body("password").isLength({ min: 8 })],
   async (req, res) => {

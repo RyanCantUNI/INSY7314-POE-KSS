@@ -5,6 +5,7 @@ import axios from 'axios';
 function Dashboard() {
     const navigate = useNavigate();
     const [customers, setCustomers] = useState([]);
+    const [admins, setAdmins] = useState([]);
     Array.isArray(customers);
 
     //Get users
@@ -18,6 +19,7 @@ function Dashboard() {
         axios.get("https://localhost:443/dashboard:" + loginID)
             .then((response) => {
                 setCustomers(response.data);
+                setAdmins(response.data);
             })
             .catch((error) => {
                 console.error("Error fetching users:", error);
@@ -49,13 +51,51 @@ function Dashboard() {
                 Logout
             </button>
             <br />
-            <ul style={{ listStyle: 'none', padding: '0' }}>
-                {customers.map((customer) => (
-                    <li key={customer.id} style={{ marginBottom: '10px', color: '#FFFFFF' }}>
-                        {customer.fullName}
-                    </li>
-                ))}
-            </ul>
+            <h2>Customers</h2>
+            <br />
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>ID</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Bank Account</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Account Number</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Name</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {customers.map((customer) => (
+                        <tr key={customer.id}>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.idNumber}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.accountName}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.accountNumber}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.name}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{customer.email}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <br />
+            <h2>Admins</h2>
+            <br />
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                    <tr style={{ backgroundColor: '#f2f2f2' }}>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>ID</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Name</th>
+                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {admins.map((admin) => (
+                        <tr key={admin.id}>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.idNumber}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.name}</td>
+                            <td style={{ padding: '10px', border: '1px solid #ddd' }}>{admin.email}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

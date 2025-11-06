@@ -184,7 +184,7 @@ user.post("/register/admin",
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
+//
 
 
 //get all admins

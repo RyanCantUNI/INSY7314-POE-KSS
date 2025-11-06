@@ -48,22 +48,22 @@ date
 
 customer_id*/
 
-payment.post("/payment/:id",[
+payment.post("/payment/:id", [
 
-      //sanitation of inputs
-      body("ammount").isFloat({ gt: 0 }),
-      body("account_paid_to").isLength({ min: 8, max: 20 }),
-      body("accountName").notEmpty(),
-      body("branchCode").isLength({ min: 4, max: 6 }),
-      body("SwiftID").optional().isLength({ min: 8, max: 11 })
+   //sanitation of inputs
+   body("amount").isFloat({ gt: 0 }),
+   body("providerAccount").isLength({ min: 8, max: 20 }),
+   body("accountName").notEmpty(),
+   body("branchCode").isLength({ min: 4, max: 6 }),
+   body("SwiftID").optional().isLength({ min: 8, max: 11 })
 ], async (req, res) => {
 
    //current time
    const time = new Date().toISOString().split('T')[0];
 
    let _id = new mongoose.Types.ObjectId();
-   let _ammount = req.body.ammount;
-   let _account_paid_to = req.body.account_paid_to;
+   let _amount = req.body.amount;
+   let _account_paid_to = req.body.providerAccount;
    let _accountName = req.body.accountName;
    let _branchCode = req.body.branchCode;
    let _SwiftID = req.body.SwiftID;
@@ -76,23 +76,23 @@ payment.post("/payment/:id",[
    console.log(_customer_id)
 
 
- let payment = new Payment({
-    id: _id,
-    ammount: _ammount,
-    account_paid_to: _account_paid_to,
-    accountName: _accountName,
-    branchCode: _branchCode,
-    SwiftID: _SwiftID,
-    date: _date,
-    customer_id: _customer_id
- });
+   let payment = new Payment({
+      id: _id,
+      amount: _amount,
+      account_paid_to: _account_paid_to,
+      accountName: _accountName,
+      branchCode: _branchCode,
+      SwiftID: _SwiftID,
+      date: _date,
+      customer_id: _customer_id
+   });
 
- try {
-    await payment.save();
-    res.status(201).json(payment);
-  } catch (error) {
-    res.status(500).json({ message:"break me"+ error.message });
- }
+   try {
+      await payment.save();
+      res.status(201).json(payment);
+   } catch (error) {
+      res.status(500).json({ message: "break me" + error.message });
+   }
 
 
 });

@@ -35,7 +35,7 @@ const paymentSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    ammount: {
+    amount: {
         type: Number,
         required: true
     },

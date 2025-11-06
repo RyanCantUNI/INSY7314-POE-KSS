@@ -7,35 +7,41 @@ import { useNavigate } from "react-router-dom";
 const AddPayment = () => {
     const [amount, setAmount] = useState('');
     const [providerAccount, setProviderAccount] = useState('');
-    const [currency, setCurrency] = useState('');
+    const [accountName, setAccountName] = useState('');
+    const [branchCode, setBranchCode] = useState('');
     const [SWIFTCode, setSWIFTCode] = useState('');
     const navigate = useNavigate();
 
     const handleAddPayment = (e) => {
-        e.preventDefault();
-        const payment = {
-           
-            amount: amount,
-            providerAccount: providerAccount,
-            currency: currency,
-            SWIFTCode: SWIFTCode
-        };
-        const token = localStorage.getItem("token"); 
+        try {
+            e.preventDefault();
+            const payment = {
 
-        const loginID = localStorage.getItem("userID"); 
-        
-        
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        axios.post("https://localhost:443/payment:"+loginID, payment)
-            .then((response) => {
-                alert("Payment added successfully!");
-                //console.log(response.data); //--used for debugging
-                navigate("/logs");
-            })
-            .catch((error) => {
-                alert("Error adding payment. Please try again.");
-                console.error("Error adding payment:", error);
-            });
+                amount: amount,
+                providerAccount: providerAccount,
+                accountName: accountName,
+                branchCode: branchCode,
+                SWIFTCode: SWIFTCode
+            };
+            console.log(payment);
+            const token = localStorage.getItem("token");
+            const loginID = localStorage.getItem("userID");
+
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            axios.post("https://localhost:443/payment:" + loginID, payment)
+                .then((response) => {
+                    alert("Payment added successfully!");
+                    //console.log(response.data); //--used for debugging
+                    navigate("/logs");
+                })
+                .catch((error) => {
+                    alert("Error adding payment. Please try again.");
+                    console.error("Error adding payment:", error);
+                });
+        } catch (error) {
+            console.error("Error adding payment:", error);
+        }
     };
     return (
         <div style={{
@@ -99,15 +105,35 @@ const AddPayment = () => {
                         />
                     </div>
 
-                    {/* Currency Field */}
+                    {/* Account Name Field */}
                     <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>Currency</label>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>Account Name</label>
                         <input
                             type="text"
-                            name="currency"
-                            placeholder="Enter the currency"
-                            value={currency}
-                            onChange={(e) => setCurrency(e.target.value)}
+                            name="accountName"
+                            placeholder="Enter the account name"
+                            value={accountName}
+                            onChange={(e) => setAccountName(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                borderRadius: '8px',
+                                border: '1px solid #ccc',
+                                boxSizing: 'border-box'
+                            }}
+                            required
+                        />
+                    </div>
+
+                    {/* Branch Code Field */}
+                    <div style={{ marginBottom: '20px', textAlign: 'left' }}>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>Branch Code</label>
+                        <input
+                            type="text"
+                            name="branchCode"
+                            placeholder="Enter the branch code"
+                            value={branchCode}
+                            onChange={(e) => setBranchCode(e.target.value)}
                             style={{
                                 width: '100%',
                                 padding: '10px',

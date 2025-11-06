@@ -6,8 +6,7 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    accountNumber: ''
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -23,7 +22,6 @@ function Login() {
     const user = {
       email: formData.email,
       password: formData.password,
-      accountNumber: formData.accountNumber
     };
 
     axios.post("https://localhost:443/login", user)
@@ -63,26 +61,6 @@ function Login() {
         <p style={{ color: '#666', marginBottom: '30px' }}>Welcome back! Please log in below.</p>
 
         <form onSubmit={handleSubmit}>
-          {/* Account Number Field */}
-          <div style={{ marginBottom: '20px', textAlign: 'left' }}>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>Account Number</label>
-            <input
-              type="text"
-              name="accountNumber"
-              placeholder="Enter your account number"
-              value={formData.accountNumber}
-              onChange={handleChange}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box'
-              }}
-              required
-            />
-          </div>
-
           {/* Email Field */}
           <div style={{ marginBottom: '20px', textAlign: 'left' }}>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500', color: '#333' }}>Email</label>

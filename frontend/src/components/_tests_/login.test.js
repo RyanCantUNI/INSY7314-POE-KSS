@@ -7,14 +7,12 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-// ===== IMPORTS =====
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import Login from '../login';
 
-// ===== RENDER HELPER =====
 const renderLogin = () => {
   return render(
     <BrowserRouter>
@@ -23,7 +21,6 @@ const renderLogin = () => {
   );
 };
 
-// ===== TESTS =====
 describe('Login Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();

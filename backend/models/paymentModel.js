@@ -25,7 +25,7 @@ customer_id
 
 
 //for data definition language 
-import mongoose from "mongoose";
+import mongoose from "mongoose";    
 //TO:DO and more ECC
 //db schema 
 const paymentSchema = new mongoose.Schema({
@@ -35,7 +35,7 @@ const paymentSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    amount: {
+    ammount: {
         type: Number,
         required: true
     },

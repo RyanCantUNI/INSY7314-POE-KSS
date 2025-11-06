@@ -3,8 +3,6 @@ summary this page will let cusomters make payments
 */
 
 //data schema modles
-import Admin from "../models/adminModel.js";
-import Customer from "../models/customerModel.js";
 import Payment from "../models/paymentModel.js";
 
 //mongoose for UUID
@@ -46,20 +44,25 @@ date
 
 customer_id*/
 
-payment.post("/payment:id", async (req, res) => {
+payment.post("/payment/:id", async (req, res) => {
 
-_id = new mongoose.Types.ObjectId();
-_ammount = req.body.ammount
-_account_paid_to = req.body.account_paid_to
-_accountName = req.body.accountName
-_branchCode = req.body.branchCode
-_SwiftID = req.body.SwiftID
+   //current time
+   const time = new Date().toISOString().split('T')[0];
 
-//date time now
-_date = req.body.date
+   let _id = new mongoose.Types.ObjectId();
+   let _ammount = req.body.ammount;
+   let _account_paid_to = req.body.account_paid_to;
+   let _accountName = req.body.accountName;
+   let _branchCode = req.body.branchCode;
+   let _SwiftID = req.body.SwiftID;
 
-//customer id in the token
-_customer_id = req.body.customer_id
+   //current time
+   let _date = time;
+
+   //id in header from auth token 
+   let _customer_id = req.params.id;
+   console.log(_customer_id)
+
 
  let payment = new Payment({
     id: _id,
@@ -76,7 +79,7 @@ _customer_id = req.body.customer_id
     await payment.save();
     res.status(201).json(payment);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message:"break me"+ error.message });
  }
 
 

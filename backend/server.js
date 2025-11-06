@@ -51,8 +51,9 @@ app.use(helmet());
 
 //configure cors
 
-const _private ="./key/privatekey.pem"
-const _cert = "./key/certificate.pem"
+const _private = process.env.PRIVATE_KEY_PATH;
+const _cert = process.env.CERTIFICATE_PATH;
+
 
 //configure server to use https
 const server = http.createServer(

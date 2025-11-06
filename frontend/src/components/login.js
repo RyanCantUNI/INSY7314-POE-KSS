@@ -29,7 +29,16 @@ function Login() {
         alert("Login successful!");
         // Store UUID directly without intermediate variable
         localStorage.setItem("userID", response.data.UUID);
-        navigate("/payment");
+
+        //Redirect to dashboard if admin
+        if (response.data.role === 'admin') {
+          navigate("/dashboard");
+        }
+        else if (response.data.role === 'customer') {
+          navigate("/payment");
+        } else {
+          alert("Role error. Please contact admin.");
+        }
       })
       .catch((error) => {
         alert("Login failed. Please check your credentials.");

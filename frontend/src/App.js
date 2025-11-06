@@ -5,6 +5,7 @@ import Login from './components/login';
 import Register from './components/register';
 import Payment from './components/payment';
 import Logs from './components/logs';
+import Dashboard from './components/dashboard';
 
 //  Updated Landing (Index) Page
 function Index() {
@@ -53,8 +54,8 @@ function Index() {
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
             onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
-            onFocus={e => (e.target.style.backgroundColor = '#1a5fd1')} 
-            onBlur={e => (e.target.style.backgroundColor = '#2575fc')}  
+            onFocus={e => (e.target.style.backgroundColor = '#1a5fd1')}
+            onBlur={e => (e.target.style.backgroundColor = '#2575fc')}
           >
             Register
           </button>
@@ -94,6 +95,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/logs" element={<Logs />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

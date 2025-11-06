@@ -11,7 +11,7 @@ export const userToken = (id ,email)=>
     id for current logged in user
     email for verfication perposes
     */
-   return jwt.sign({ id, email }, process.env.JWT_SECRET);;
+   return jwt.sign({ id, email }, "user token", { expiresIn: '2h' });;
 }
 
 
@@ -25,6 +25,6 @@ export const generateAdminsToken = (id, email, role) => {
     */
 
 
-  return jwt.sign({ id, email, role }, process.env.JWT_SECRET);
+  return jwt.sign({ id, email, role }, "admin token", { expiresIn: '2h' });
 };
 

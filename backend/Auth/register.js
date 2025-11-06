@@ -95,13 +95,14 @@ user.post("/register/customer", async (req, res) => {
         const customerName = req.body.name
     
         const _id = new mongoose.Types.ObjectId();
+        let emailIn = ""
         //check sum to see if user already exists
          const doesEmailExist = await Admin.findOne({ email: req.body.email });
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }
           else{
-            const emailIn = req.body.email
+             emailIn = req.body.email
           }
         //creating new admin entry 
         const customer = new Customer({
@@ -138,22 +139,22 @@ user.post("/register/admin", async (req, res) => {
         */
         //encrypting and salting password
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const adminName = req.body.name
+        const _adminName = req.body.admin_name
        
         const _id = new mongoose.Types.ObjectId();
-
+        let emailIn
         //check sum to see if user already exists
          const doesEmailExist = await Admin.findOne({ email: req.body.email });
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }
           else{
-            const emailIn = req.body.email
+             emailIn = req.body.email
           }
         //creating new admin entry 
         const admin = new Admin({
             id: _id,
-            admin_name: adminName,
+            admin_name: _adminName,
             email: emailIn,
             password: hashedPassword,
             role: "admin"
@@ -174,10 +175,23 @@ user.post("/register/admin", async (req, res) => {
 
 
 
-//get all users 
-user.get("/users", async (req, res) => {
+//get all admins
+user.get("/getuser/admin", async (req, res) => {
     try {
         const users = await Admin.find();
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+
+//get all customers
+user.get("/getuser/customer", async (req, res) => {
+    try {
+        const users = await Customer.find();
         res.json(users);
     } catch (error) {
         console.error("Error fetching users:", error);

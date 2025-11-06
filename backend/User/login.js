@@ -47,8 +47,7 @@ login.post("/login", async (req, res) => {
 
     const _email = {email: req.body.email.toString()};
     const _password = req.body.password.toString();
-    console.log(_email)
-    console.log(_password)
+  
 
     //we first check if the user is admin or customer
     const admin = await Admin.findOne(_email);
@@ -57,8 +56,7 @@ login.post("/login", async (req, res) => {
     
 
     if (admin){
-          passwordMatch = await comparePassword(_password, admin.password);
-          console.log(passwordMatch)
+        passwordMatch = await comparePassword(_password, admin.password);
         if (passwordMatch) {
            //call admin auth to set up that stuff
            ///get admin id

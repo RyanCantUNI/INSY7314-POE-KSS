@@ -188,28 +188,18 @@ user.post("/register/admin",
 
 
 //get all admins
-user.get("/getuser/admin", async (req, res) => {
+user.get("/getuser", async (req, res) => {
     try {
         const users = await Admin.find();
-        res.json(users);
+        const customer = await Customer.find();
+       res.json({ admins: users, customers: customer});
     } catch (error) {
         console.error("Error fetching users:", error);
         res.status(500).json({ message: "Internal server error" });
     }
-});
+})
 
 
-
-//get all customers
-user.get("/getuser/customer", async (req, res) => {
-    try {
-        const users = await Customer.find();
-        res.json(users);
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-});
 
 
 

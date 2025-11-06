@@ -29,14 +29,43 @@ const payment = express();
 
 payment.use(bodyParser.json());
 
+/*
+    id
+
+amount
+
+account_paid_to(number)
+
+accountName
+
+branchCode
+
+SwiftID(optional)
+
+date
+
+customer_id*/
+
 payment.post("/payment:id", async (req, res) => {
 
+_id = new mongoose.Types.ObjectId();
+_ammount = req.body.ammount
+_account_paid_to = req.body.account_paid_to
+_accountName = req.body.accountName
+_branchCode = req.body.branchCode
+_SwiftID = req.body.SwiftID
+_date = req.body.date
+_customer_id = req.body.customer_id
+
  let payment = new Payment({
-    id: req.params.id,
-    amount: req.body.amount,
-    date: req.body.date,
-    description: req.body.description,
-    customer_id: req.body.customer_id
+    id: _id,
+    ammount: _ammount,
+    account_paid_to: _account_paid_to,
+    accountName: _accountName,
+    branchCode: _branchCode,
+    SwiftID: _SwiftID,
+    date: _date,
+    customer_id: _customer_id
  });
 
  try {

@@ -1,42 +1,16 @@
 {
   "name": "kss_insy714_part_2",
   "version": "1.0.0",
-  "description": "",
-  "main": "cd frontend/src/App.js",
+  "private": true,
   "scripts": {
-    "test": "npm run test -w backend && npm run test -w frontend",
-    "both": "concurrently \"npm:dev\" \"npm:dev2\"",
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
-    "dev2": "cd frontend && npm start"
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "test": "npm run test:backend && npm run test:frontend"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/VCSTDN2024/insy7314-poe-kss.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/VCSTDN2024/insy7314-poe-kss/issues"
-  },
-  "homepage": "https://github.com/VCSTDN2024/insy7314-poe-kss#readme",
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "concurrently": "^9.2.1",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
-    "express-rate-limit": "^8.2.1",
-    "express-validator": "^7.3.0",
-    "helmet": "^8.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.19.3",
-    "nodemon": "^3.1.10",
-    "uuid": "^13.0.0",
-    "xss": "^1.0.15",
-    "xss-clean": "^0.1.4"
-  }
+    "concurrently": "^9.2.1"
+  },
+  "devDependencies": {}
 }

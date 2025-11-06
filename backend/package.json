@@ -2,7 +2,7 @@
   "type": "module",
   "name": "backend",
   "version": "1.0.0",
-  "main": "Server.js",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
@@ -10,9 +10,6 @@
     "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.13.1",
     "bcrypt": "^6.0.0",

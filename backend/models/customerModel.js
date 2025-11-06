@@ -37,16 +37,9 @@ const customerSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        validate: {
-          validator: function (v) {
-          let regex = new RegExp(
-            "^(?=[a-zA-Z0-9._ ]{10,35}$)(?!.*[_.]{2})[^_.].*[^_.]$"
-            
-          );
-          return regex.test(v);
-        },
         
-    },
+        
+    
     required: true
     },
     national_Id: {

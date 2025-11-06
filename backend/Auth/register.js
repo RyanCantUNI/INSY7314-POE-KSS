@@ -105,7 +105,7 @@ role
         */
         //encrypting and salting password
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const customerName = req.body.name
+        const customerName = req.body.customer_name
         const _national_Id = req.body.national_Id
         const _bankaccount = req.body.bankaccount
         const _accountnumber = req.body.accountnumber
@@ -123,10 +123,10 @@ role
         //creating new admin entry 
         const customer = new Customer({
             id: _id,
-            customer_name: customerName,
+            name: customerName,
             national_Id: _national_Id,
-            bankaccount: _bankaccount,
-            accountnumber: _accountnumber,
+            account: _bankaccount,
+            bankaccountnumber: _accountnumber,
             email: emailIn,
             password: hashedPassword,
             role: "customer"

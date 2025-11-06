@@ -4,11 +4,23 @@ this is a template class for customer payments in the mongo
 like mvc same same but different 
 
 payment {
-    id: String,
-    amount: Number,
-    date: Date,
-    description: String,
-    customer_id: String}
+    id
+
+amount
+
+account_paid_to(number)
+
+accountName
+
+branchCode
+
+SwiftID(optional)
+
+date
+
+customer_id
+
+
 */
 
 
@@ -19,7 +31,7 @@ import mongoose from "mongoose";
 const paymentSchema = new mongoose.Schema({
     id: {
         //auto generated 
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true
     },
@@ -27,15 +39,28 @@ const paymentSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    account_paid_to: {
+        type: String,
+        required: true
+    },
+    accountName: {
+        type: String,
+        required: true
+    },
+    branchCode: {
+        type: String,
+        required: true
+    },
+    SwiftID: {
+        type: String,
+        required: false
+    },
     date: {
         //auto generated
         type: Date,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
+   
     customer_id: {
         type: String,
         required: true

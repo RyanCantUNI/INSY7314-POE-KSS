@@ -31,7 +31,7 @@ import mongoose from "mongoose";
 const customerSchema = new mongoose.Schema({
     id: {
         //auto generated 
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true
     },

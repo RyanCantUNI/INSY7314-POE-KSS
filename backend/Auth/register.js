@@ -21,6 +21,9 @@ import bcrypt from "bcrypt";
 //express
 import express from "express";
 
+//input sanitation
+import { body, validationResult } from "express-validator"
+
 //express app
 const user = express()
 user.use(bodyParser.json())
@@ -72,7 +75,15 @@ user.use(bodyParser.json())
 //delet acount
 
 //register standard user 
-user.post("/register/customer", async (req, res) => {
+user.post("/register/customer",[
+    //sanitation of inputs
+        body("email").isEmail(),
+        body("password").isLength({ min: 8 }),
+        body("customer_name").notEmpty(),
+        body("national_Id").isLength({ min: 8, max: 20 }),
+        body("bankaccount").notEmpty(),
+        body("accountnumber").isLength({ min: 8, max: 20 })
+], async (req, res) => {
     try{
         /*
        customer {
@@ -130,7 +141,13 @@ role
 
 
 //register admin user
-user.post("/register/admin", async (req, res) => {
+user.post("/register/admin",
+    [
+    //sanitation of inputs
+        body("email").isEmail(),
+        body("password").isLength({ min: 8 }),
+        body("admin_name").notEmpty()
+    ], async (req, res) => {
     try{
         /*
         id: String,

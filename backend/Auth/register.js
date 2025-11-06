@@ -53,8 +53,6 @@ user.use(bodyParser.json())
 //         await admin.save();
     
         
-//         res.status(201).json({ message: "Admin registered successfully" });
-//         console.log(admin)
 
 //   } catch (error) {
 //     console.error(error);
@@ -105,9 +103,10 @@ role
     
         const _id = new mongoose.Types.ObjectId();
         let emailIn = ""
-        let _emailcheck = req.body.email
+        let _emailcheck = {email: req.body.email.toString()}
+        
         //check sum to see if user already exists
-         const doesEmailExist = await Admin.findOne({ _emailcheck});
+         const doesEmailExist = await Admin.findOne(_emailcheck,(err, users) => {});
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }
@@ -156,9 +155,9 @@ user.post("/register/admin", async (req, res) => {
        
         const _id = new mongoose.Types.ObjectId();
         let emailIn
-        let _emailcheck = req.body.email
+         let _emailcheck = {email: req.body.email.toString()}
         //check sum to see if user already exists
-         const doesEmailExist = await Admin.findOne({ _emailcheck});
+           const doesEmailExist = await Admin.findOne(_emailcheck,(err, users) => {});
          if (doesEmailExist) {
             return res.status(400).json({ message: "Email already exists" });
           }

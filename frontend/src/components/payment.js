@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import axios, { Axios } from "axios";
+import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
 
 const AddPayment = () => {
-    const userID = localStorage.getItem("userID");
     const [amount, setAmount] = useState('');
     const [providerAccount, setProviderAccount] = useState('');
     const [currency, setCurrency] = useState('');

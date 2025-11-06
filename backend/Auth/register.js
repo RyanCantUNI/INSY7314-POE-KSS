@@ -102,17 +102,7 @@ role
         const _accountnumber = req.body.accountnumber
     
         const _id = new mongoose.Types.ObjectId();
-        let emailIn = ""
-        let _emailcheck = {email: req.body.email.toString()}
-        
-        //check sum to see if user already exists
-         const doesEmailExist = await Admin.findOne(_emailcheck,(err, users) => {});
-         if (doesEmailExist) {
-            return res.status(400).json({ message: "Email already exists" });
-          }
-          else{
-             emailIn = req.body.email
-          }
+        let emailIn = req.body.email
         //creating new admin entry 
         const customer = new Customer({
             id: _id,
@@ -154,16 +144,8 @@ user.post("/register/admin", async (req, res) => {
         const _adminName = req.body.admin_name
        
         const _id = new mongoose.Types.ObjectId();
-        let emailIn
-         let _emailcheck = {email: req.body.email.toString()}
-        //check sum to see if user already exists
-           const doesEmailExist = await Admin.findOne(_emailcheck,(err, users) => {});
-         if (doesEmailExist) {
-            return res.status(400).json({ message: "Email already exists" });
-          }
-          else{
-             emailIn = req.body.email
-          }
+        let emailIn = req.body.email
+        
         //creating new admin entry 
         const admin = new Admin({
             id: _id,

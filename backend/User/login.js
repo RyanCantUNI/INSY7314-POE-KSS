@@ -22,7 +22,7 @@ import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 
 //token builder
-
+import { userToken, generateAdminsToken } from "../DB/token.js";
 
 
 
@@ -52,7 +52,15 @@ login.post("/login", async (req, res) => {
         const passwordMatch = await bcrypt.compare(_password, admin.password);
         if (passwordMatch) {
            //call admin auth to set up that stuff
-            console.log("valid admin")
+           ///get admin id
+           let _id = admin.id
+           let _email = admin.email
+           //generate token
+           const token = generateAdminsToken(_id, _email, "admin");
+
+           //set cookie
+           res.cookie("token", token, { httpOnly: true });
+           
             //return user role
             res.status(200).json({ role: "admin" });
           
@@ -65,6 +73,13 @@ login.post("/login", async (req, res) => {
         if (passwordMatch) {
           //call user auth to set up that stuff 
 
+          //get user id
+          let _id = customer.id
+          let _email = customer.email
+          //generate token
+          const token = userToken(_id, _email, "customer");
+          //set cookie
+          res.cookie("token", token, { httpOnly: true });
 
           //return user role
             res.status(200).json({ role: "customer" });

@@ -35,26 +35,36 @@ const login = express()
 
 login.use(bodyParser.json());
 
+//password hash checker
+const comparePassword = async (password, hashedPassword) => {
+  return await bcrypt.compare(password.toString(), hashedPassword.toString());
+};
+
+
 
 login.post("/login", async (req, res) => {
+    let passwordMatch = false
 
-    const _email = {email: req.body.email.toString()}
-    const _password = {password: req.body.password.toString()}
-   
+    const _email = {email: req.body.email.toString()};
+    const _password = req.body.password.toString();
+    console.log(_email)
+    console.log(_password)
 
     //we first check if the user is admin or customer
-    const admin = await Admin.findOne(_email,(err, users) => {});
-    const customer = await Customer.findOne(_email,(err, users) => {});
+    const admin = await Admin.findOne(_email);
+    const customer = await Customer.findOne(_email);
 
     
 
     if (admin){
-        const passwordMatch = await bcrypt.compare(_password, admin.password);
+          passwordMatch = await comparePassword(_password, admin.password);
+          console.log(passwordMatch)
         if (passwordMatch) {
            //call admin auth to set up that stuff
            ///get admin id
            let _id = admin.id
            let _email = admin.email
+           
            //generate token
            const token = generateAdminsToken(_id, _email, "admin");
 
@@ -65,11 +75,11 @@ login.post("/login", async (req, res) => {
             res.status(200).json({ role: "admin" });
           
         } else {
-            res.status(401).json({ message: "Invalid credentials" });
+            res.status(401).json({ message: "Invalid credentials admin" });
         }
     }
     else if (customer){
-        const passwordMatch = await bcrypt.compare(_password, customer.password);
+         passwordMatch = await comparePassword(_password, customer.password);
         if (passwordMatch) {
           //call user auth to set up that stuff 
 
@@ -88,7 +98,7 @@ login.post("/login", async (req, res) => {
         }
     }
     else{
-        res.status(401).json({ message: "Invalid credentials " });
+        res.status(401).json({ message: "Invalid credentials or user does not exist " });
     }
 
 }

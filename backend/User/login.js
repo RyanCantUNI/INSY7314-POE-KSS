@@ -38,13 +38,13 @@ login.use(bodyParser.json());
 
 login.post("/login", async (req, res) => {
 
-    const _email = req.body.email;
-    const _password = req.body.password;
+    const _email = {email: req.body.email.toString()}
+    const _password = {password: req.body.password.toString()}
    
 
     //we first check if the user is admin or customer
-    const admin = await Admin.findOne({email: _email});
-    const customer = await Customer.findOne({email: _email});
+    const admin = await Admin.findOne(_email,(err, users) => {});
+    const customer = await Customer.findOne(_email,(err, users) => {});
 
     
 

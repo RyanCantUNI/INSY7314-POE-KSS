@@ -98,9 +98,7 @@ npm install
 
 **Backend Dependencies:**
 ```bash
-npm install express cors dotenv helmet cookie-parser uuid bcrypt jsonwebtoken express-validator xss-clean express-rate-limit
-```
-
+npm install 
 ### 3. Frontend Setup
 ```bash
 cd ../frontend

@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals';
 import request from 'supertest';
 import express from 'express';
 
@@ -17,7 +16,7 @@ const createTestApp = () => {
       return res.status(400).json({ message: 'All fields are required' });
     }
     
-    if (!amount || parseFloat(amount) <= 0) {
+    if (!amount || Number.parseFloat(amount) <= 0) {
       return res.status(400).json({ message: 'Amount must be greater than 0' });
     }
     

@@ -11,7 +11,7 @@ function Dashboard() {
     //Get users
     useEffect(() => {
         //get current user 
-        const loginID = localStorage.getItem("userID");
+        //const loginID = localStorage.getItem("userID");
 
         //get token
         const token = localStorage.getItem("token");

@@ -50,7 +50,8 @@ logs.get("/payments", async (req, res) => {
 
 //get payments by customer id 
 //parse in id which we get from session token
-logs.get("/payments/:id", async (req, res) => {
+logs.get("/payments/:id",
+  async (req, res) => {
   let _customer_id = req.params.id.replace(":", "")
   try {
     console.log(_customer_id)

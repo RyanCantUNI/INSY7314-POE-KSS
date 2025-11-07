@@ -19,6 +19,7 @@ const PaymentList = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         axios.get("https://localhost:443/payments/" + loginID)
             .then((response) => {
+                
                 setPayments(response.data);
             })
             .catch((error) => {
@@ -26,7 +27,7 @@ const PaymentList = () => {
             });
     }, []);
 
-    //Return the list of payments
+    
     return (
         <div style={{
             display: 'flex',
@@ -55,18 +56,39 @@ const PaymentList = () => {
                 {payments.map((payment) => (
                     <li key={payment.paymentID} style={{ marginBottom: '20px', backgroundColor: '#fff', padding: '10px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)', textAlign: 'left' }}>
 
-                        <h2 style={{ marginBottom: '5px', color: '#666' }}>Date: {payment.date}</h2>
-                        <p style={{ marginBottom: '5px', color: '#333' }}>Payment ID: {payment.paymentID}</p>
-                        <p style={{ marginBottom: '5px', color: '#666' }}>User ID: {payment.userID}</p>
+                        <h2 style={{ marginBottom: '5px', color: '#666' }}>Payment ID: {payment.id}</h2>
+                        <p style={{ marginBottom: '5px', color: '#333' }}>Date: {payment.date}</p>
                         <p style={{ marginBottom: '5px', color: '#666' }}>Amount: {payment.amount}</p>
-                        <p style={{ marginBottom: '5px', color: '#666' }}>Provider Account: {payment.providerAccount}</p>
-                        <p style={{ marginBottom: '5px', color: '#666' }}>Currency: {payment.currency}</p>
-                        <p style={{ marginBottom: '5px', color: '#666' }}>SWIFT Code: {payment.SWIFTCode}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Provider Account: {payment.account_paid_to}</p>
+                        <p style={{ marginBottom: '5px', color: '#666' }}>Account Name: {payment.accountName}</p>
+                        
                     </li>
                 ))}
             </ul>
         </div>
     );
 }
+
+
 //Export the list of payments
+
+//payment model
+    /*
+    id
+
+    amount
+
+    account_paid_to(number)
+
+    accountName
+
+    branchCode
+
+    SwiftID(optional)
+
+    date
+
+    customer_id*/
+
+    //Return the list of payments
 export default PaymentList

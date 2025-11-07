@@ -54,6 +54,7 @@ const AdminLogs = () => {
         }}
         onMouseOver={e => (e.target.style.backgroundColor = "#388e3c")}
         onMouseOut={e => (e.target.style.backgroundColor = "#4CAF50")}
+        onFocus={e => (e.target.style.backgroundColor = "#388e3c")}
       >
         Back to Dashboard
       </button>

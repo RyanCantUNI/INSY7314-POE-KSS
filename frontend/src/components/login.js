@@ -35,7 +35,7 @@ function Login() {
           navigate("/dashboard");
         }
         else if (response.data.role === 'customer') {
-          //we set resonds id to local storage
+          // Store userID and redirect
           localStorage.setItem("userID", response.data.UUID);
           console.log(response.data.UUID);
           navigate("/payment");
@@ -132,26 +132,6 @@ function Login() {
               onMouseOut={(e) => e.target.style.backgroundColor = '#2575fc'}
             >
               Login
-            </button>
-
-            <button
-              type="button"
-              onClick={() => navigate('/register')}
-              style={{
-                backgroundColor: '#f0f0f0',
-                color: '#333',
-                padding: '10px 20px',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '600',
-                width: '48%',
-                transition: 'background-color 0.3s ease'
-              }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#f0f0f0'}
-            >
-              Register
             </button>
           </div>
         </form>

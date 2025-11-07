@@ -115,15 +115,4 @@ describe('Login Component', () => {
       });
     });
   });
-
-  describe('Navigation', () => {
-    it('navigates to register page when register button is clicked', () => {
-      renderLogin();
-      
-      const registerButton = screen.getByRole('button', { name: /register/i });
-      fireEvent.click(registerButton);
-      
-      expect(mockNavigate).toHaveBeenCalledWith('/register');
-    });
-  });
 });

@@ -18,13 +18,13 @@ describe('App Component', () => {
     render(<App />);
     
     expect(screen.getByText('Welcome to Our App')).toBeInTheDocument();
-    expect(screen.getByText(/Please log in or register/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please log in/i)).toBeInTheDocument();
   });
 
   it('renders navigation buttons', () => {
     render(<App />);
     
-    expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
+    
     expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
   });
 

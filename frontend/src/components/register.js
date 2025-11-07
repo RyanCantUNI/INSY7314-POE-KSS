@@ -13,7 +13,8 @@ function Register() {
     password: '',
     role: 'user' // default role
   });
-
+  const adminFields = ['fullName', 'email', 'password'];
+  const customerFields = ['fullName', 'email', 'password', 'nationalId', 'bankCode', 'accountNumber'];
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -73,129 +74,170 @@ function Register() {
           textAlign: 'center'
         }}
       >
-        <h1 style={{ marginBottom: '10px', color: '#333', fontWeight: '700' }}>Create Account</h1>
-        <p style={{ color: '#666', marginBottom: '30px' }}>Fill in your details to register.</p>
-
+        <h1 style={{ marginTop: '200px', marginBottom: '10px', color: '#333', fontWeight: '700' }}>Create Account</h1>
+        <h2 style={{ color: '#666', marginBottom: '30px' }}>Fill in your details to register.</h2>
+        {/* Role Dropdown */}
+        <div style={{ marginBottom: '25px', textAlign: 'left' }}>
+          <label
+            style={{
+              display: 'block',
+              marginBottom: '5px',
+              fontWeight: '600',
+              color: '#333'
+            }}
+          >
+            Select Role
+          </label>
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+            style={{
+              width: '100%',
+              padding: '10px',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+              boxSizing: 'border-box',
+              backgroundColor: '#fff',
+              cursor: 'pointer',
+              transition: 'border-color 0.3s ease'
+            }}
+            onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
+            onBlur={(e) => (e.target.style.borderColor = '#ccc')}
+          >
+            <option value="user">Customer</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
         <form onSubmit={handleSubmit}>
-          {['fullName', 'email', 'idNumber', 'accountNumber', 'password'].map((field) => (
-            <div key={field} style={{ marginBottom: '20px', textAlign: 'left' }}>
-              <label
-                style={{
-                  display: 'block',
-                  marginBottom: '5px',
-                  fontWeight: '600',
-                  color: '#333'
-                }}
-              >
-                {field === 'fullName'
-                  ? 'Full Name'
-                  : field === 'email'
-                  ? 'Email'
-                  : field === 'idNumber'
-                  ? 'ID Number'
-                  : field === 'accountNumber'
-                  ? 'Account Number'
-                  : 'Password'}
-              </label>
-              <input
-                type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
-                name={field}
-                placeholder={`Enter your ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
-                value={formData[field]}
-                onChange={handleChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
-                  boxSizing: 'border-box',
-                  transition: 'border-color 0.3s ease'
-                }}
-                onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
-                onBlur={(e) => (e.target.style.borderColor = '#ccc')}
-              />
-            </div>
-          ))}
-
-          {/* Role Dropdown */}
-          <div style={{ marginBottom: '25px', textAlign: 'left' }}>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: '600',
-                color: '#333'
-              }}
-            >
-              Select Role
-            </label>
-            <select
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-                backgroundColor: '#fff',
-                cursor: 'pointer',
-                transition: 'border-color 0.3s ease'
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
-              onBlur={(e) => (e.target.style.borderColor = '#ccc')}
-            >
-              <option value="user">Customer</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }}>
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                backgroundColor: '#2575fc',
-                color: '#fff',
-                padding: '10px 20px',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '600',
-                width: '48%',
-                opacity: loading ? 0.7 : 1,
-                transition: 'background-color 0.3s ease, transform 0.2s ease'
-              }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
-              onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
-            >
-              {loading ? 'Registering...' : 'Register'}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => navigate('/login')}
-              style={{
-                backgroundColor: '#f0f0f0',
-                color: '#333',
-                padding: '10px 20px',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '600',
-                width: '48%',
-                transition: 'background-color 0.3s ease, transform 0.2s ease'
-              }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
-              onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
-            >
-              Back to Login
-            </button>
-          </div>
+          {
+            // Change input fields dynamically based on the role being registered.
+            formData.role === 'user' ? customerFields.map((field) => (
+              <div key={field} style={{ marginBottom: '20px', textAlign: 'left' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '5px',
+                    fontWeight: '600',
+                    color: '#333'
+                  }}
+                >
+                  {field === 'fullName' ? 'Full Name'
+                    : field === 'email' ? 'Email'
+                      : field === 'accountNumber' ? 'Account Number'
+                        : field === 'nationalId' ? 'National Id'
+                          : field === 'bankCode' ? 'Bank Code'
+                            : field === 'accountNumber' ? 'Account Number'
+                              : field === 'password' ? 'Password'
+                                : 'ERROR'
+                  }
+                </label>
+                <input
+                  type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
+                  name={field}
+                  placeholder={`Enter your ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '1px solid #ccc',
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.3s ease'
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
+                  onBlur={(e) => (e.target.style.borderColor = '#ccc')}
+                />
+              </div>
+            ))
+              : adminFields.map((field) => (
+                <div key={field} style={{ marginBottom: '20px', textAlign: 'left' }}>
+                  <label
+                    style={{
+                      display: 'block',
+                      marginBottom: '5px',
+                      fontWeight: '600',
+                      color: '#333'
+                    }}
+                  >
+                    {field === 'fullName' ? 'Full Name'
+                      : field === 'email' ? 'Email'
+                        : field === 'accountNumber' ? 'Account Number'
+                          : field === 'nationalId' ? 'National Id'
+                            : field === 'bankCode' ? 'Bank Code'
+                              : field === 'accountNumber' ? 'Account Number'
+                                : field === 'password' ? 'Password'
+                                  : 'ERROR'
+                    }
+                  </label>
+                  <input
+                    type={field === 'password' ? 'password' : field === 'email' ? 'email' : 'text'}
+                    name={field}
+                    placeholder={`Enter your ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}`}
+                    value={formData[field]}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      border: '1px solid #ccc',
+                      boxSizing: 'border-box',
+                      transition: 'border-color 0.3s ease'
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = '#2575fc')}
+                    onBlur={(e) => (e.target.style.borderColor = '#ccc')}
+                  />
+                </div>
+              ))
+          }
         </form>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }}>
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              backgroundColor: '#2575fc',
+              color: '#fff',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              width: '48%',
+              opacity: loading ? 0.7 : 1,
+              transition: 'background-color 0.3s ease, transform 0.2s ease'
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
+            onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
+          >
+            {loading ? 'Registering...' : 'Register'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate('/login')}
+            style={{
+              backgroundColor: '#f0f0f0',
+              color: '#333',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              width: '48%',
+              transition: 'background-color 0.3s ease, transform 0.2s ease'
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
+            onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
+          >
+            Back to Login
+          </button>
+        </div>
       </div>
     </div>
   );

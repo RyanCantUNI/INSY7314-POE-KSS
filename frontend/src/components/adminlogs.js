@@ -8,113 +8,126 @@ const AdminLogs = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    
-
-    // Set token for all axios requests
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     axios
       .get("https://localhost:443/payments")
-      .then((response) => {
-        setPayments(response.data);
-      })
+      .then((response) => setPayments(response.data))
       .catch((error) => {
         console.error("Error fetching all payments for admin:", error);
       });
   }, [navigate]);
 
   return (
-    <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            backgroundColor: '#f5f5f5',
-            padding: '40px',
-            borderRadius: '15px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            background: 'linear-gradient(135deg, #6a11cb, #2575fc)',
-            width: '100%',
-            boxSizing: 'border-box',
-            margin: '0 0 0 0',
-            overflow: 'auto',
-            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
-            textAlign: 'center'
-        }}>
-      <h1 style={{ color: "#FFFFFF", marginTop: "40px", marginBottom: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+        fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+        padding: "40px 10px",
+        boxSizing: "border-box",
+        overflow: "auto"
+      }}
+    >
+      <h1 style={{ color: "#fff", marginTop: "20px", marginBottom: "20px" }}>
         Admin Payment Logs
       </h1>
 
       <button
-        onClick={() => navigate("/admindashboard")}
+        onClick={() => navigate("/dashboard")}
         style={{
-          marginBottom: "20px",
-          padding: "10px 20px",
+          marginBottom: "30px",
+          padding: "10px 22px",
           backgroundColor: "#4CAF50",
           color: "#fff",
           border: "none",
-          borderRadius: "4px",
+          borderRadius: "8px",
           cursor: "pointer",
+          fontWeight: "600",
+          fontSize: "1rem",
+          boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+          transition: "background-color 0.2s"
         }}
+        onMouseOver={e => (e.target.style.backgroundColor = "#388e3c")}
+        onMouseOut={e => (e.target.style.backgroundColor = "#4CAF50")}
       >
         Back to Dashboard
       </button>
 
-      <ul
-        style={{
-          listStyle: "none",
-          padding: "0",
-          width: "100%",
-          maxWidth: "900px",
-        }}
-      >
+      <div style={{
+        backgroundColor: "rgba(255,255,255,0.97)",
+        borderRadius: "16px",
+        padding: "30px 16px 16px",
+        boxShadow: "0 6px 24px rgba(64, 64, 128, 0.14)",
+        width: "100%",
+        maxWidth: "1100px",
+        overflowX: "auto"
+      }}>
         {payments.length === 0 ? (
-          <p style={{ color: "#fff" }}>No payments found.</p>
+          <p style={{ color: "#888", fontWeight: "500", textAlign: "center" }}>
+            No payments found.
+          </p>
         ) : (
-          payments.map((payment) => (
-            <li
-              key={payment.id || payment.paymentID}
-              style={{
-                marginBottom: "20px",
-                backgroundColor: "#fff",
-                padding: "15px",
-                borderRadius: "10px",
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <h3 style={{ marginBottom: "10px", color: "#333" }}>
-                Payment ID: {payment.id || payment.paymentID}
-              </h3>
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Date:</strong> {payment.date}
-              </p>
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Amount:</strong> R{payment.amount}
-              </p>
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Provider Account:</strong> {payment.account_paid_to}
-              </p>
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Account Name:</strong> {payment.accountName}
-              </p>
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Branch Code:</strong> {payment.branchCode}
-              </p>
-              {payment.swiftID && (
-                <p style={{ marginBottom: "5px", color: "#555" }}>
-                  <strong>SWIFT ID:</strong> {payment.swiftID}
-                </p>
-              )}
-              <p style={{ marginBottom: "5px", color: "#555" }}>
-                <strong>Customer ID:</strong> {payment.customer_id}
-              </p>
-            </li>
-          ))
+          <table style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            fontSize: "1rem"
+          }}>
+            <thead>
+              <tr style={{ backgroundColor: "#f2f2f2" }}>
+                <th style={thStyle}>Payment ID</th>
+                <th style={thStyle}>Date</th>
+                <th style={thStyle}>Amount</th>
+                <th style={thStyle}>Provider Account</th>
+                <th style={thStyle}>Account Name</th>
+                <th style={thStyle}>Branch Code</th>
+                <th style={thStyle}>Customer ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.map((payment, i) => (
+                <tr
+                  key={payment.id || payment.paymentID || i}
+                  style={{
+                    background: i % 2 === 0 ? "#fafaff" : "#e9eafb",
+                    transition: "background 0.2s"
+                  }}
+                >
+                  <td style={tdStyle}>{payment.id || payment.paymentID}</td>
+                  <td style={tdStyle}>{payment.date}</td>
+                  <td style={tdStyle}>R{payment.amount}</td>
+                  <td style={tdStyle}>{payment.account_paid_to}</td>
+                  <td style={tdStyle}>{payment.accountName}</td>
+                  <td style={tdStyle}>{payment.branchCode}</td>
+                  <td style={tdStyle}>{payment.customer_id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
-      </ul>
+      </div>
     </div>
   );
+};
+
+const thStyle = {
+  padding: "12px 10px",
+  border: "1px solid #ddd",
+  textAlign: "center",
+  backgroundColor: "#f5f5f8",
+  color: "#444",
+  fontWeight: 700
+};
+
+const tdStyle = {
+  padding: "10px 8px",
+  border: "1px solid #e0e0ea",
+  textAlign: "center",
+  color: "#333"
 };
 
 export default AdminLogs;

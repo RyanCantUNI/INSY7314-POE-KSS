@@ -71,8 +71,8 @@ payment.post("/payment/:id", [
    //current time
    let _date = time;
 
-   //id in header from auth token 
-   let _customer_id = req.params.id;
+   //id in header from auth token plus triming the colon
+   let _customer_id = req.params.id.replace(":", "")
    console.log(_customer_id)
 
 

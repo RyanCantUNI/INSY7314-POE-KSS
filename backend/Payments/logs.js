@@ -51,10 +51,10 @@ logs.get("/payments", async (req, res) => {
 //get payments by customer id 
 //parse in id which we get from session token
 logs.get("/payments/:id", async (req, res) => {
-  let _customer_id = {customer_id: req.params.id.toString()}
+  let _customer_id = req.params.id.replace(":", "")
   try {
     console.log(_customer_id)
-    const payments = await Payment.find(_customer_id,(err, users) => {});
+    const payments = await Payment.find({ customer_id: _customer_id });
     res.status(200).json(payments);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving payments" });

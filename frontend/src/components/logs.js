@@ -12,10 +12,12 @@ const PaymentList = () => {
         //get current user 
         const loginID = localStorage.getItem("userID");
 
+        
+
         //get token
         const token = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        axios.get("https://localhost:443/logs:" + loginID)
+        axios.get("https://localhost:443/payments/" + loginID)
             .then((response) => {
                 setPayments(response.data);
             })

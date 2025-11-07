@@ -27,11 +27,11 @@ const AddPayment = () => {
             const token = localStorage.getItem("token");
             //console.log(token);
             const loginID = localStorage.getItem("userID");
-            //console.log(loginID);
+            console.log(loginID);
 
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            axios.post("https://localhost:443/payment/" + loginID, payment)
+            axios.post("https://localhost:443/payment/:" + loginID, payment)
                 .then((response) => {
                     alert("Payment added successfully!");
                     //console.log(response.data); //--used for debugging

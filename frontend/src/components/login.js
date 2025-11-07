@@ -37,7 +37,7 @@ function Login() {
         else if (response.data.role === 'customer') {
           //we set resonds id to local storage
           localStorage.setItem("userID", response.data.UUID);
-          //console.log(response.data.UUID);
+          console.log(response.data.UUID);
           navigate("/payment");
         } else {
           alert("Role error. Please contact admin.");

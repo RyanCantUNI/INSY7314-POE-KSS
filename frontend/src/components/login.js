@@ -131,6 +131,7 @@ function Login() {
               onMouseOver={(e) => e.target.style.backgroundColor = '#1a5fd1'}
               onMouseOut={(e) => e.target.style.backgroundColor = '#2575fc'}
               onFocus={e => (e.target.style.backgroundColor = '#1a5fd1')}
+              onBlur={e => (e.target.style.backgroundColor = '#2575fc')}
             >
               Login
             </button>

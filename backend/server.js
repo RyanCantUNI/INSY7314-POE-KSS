@@ -49,6 +49,15 @@ app.use(logs);
 //configure security 
 app.use(helmet());
 
+// HSTS middleware
+app.use((req, res, next) => {
+  // Only set HSTS header for secure connections
+  if (req.secure) {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+  next();
+});
+
 
 //configure https credentials using 5 steps to make sonar cube happy 
 const _getprivate = process.env.PRIVATE_KEY_PATH;

@@ -74,7 +74,7 @@ login.post("/login", [
            
            //generate token
            const token = generateAdminsToken(_id, _email, "admin");
-           console.log("Generated Admin Token:", token);
+           //console.log("Generated Admin Token:", token);
 
            //set cookie
            res.cookie("token", token)
@@ -93,11 +93,11 @@ login.post("/login", [
           //get user id
           let _id = customer.id
           let _email = customer.email
-          console.log(_id);
-          console.log(_email);
+         // console.log(_id);
+          //console.log(_email);
           //generate token
           const token = userToken(_id, _email);
-          console.log("Generated User Token:", token.id);
+          //console.log("Generated User Token:", token.id);
 
           //set cookie
           res.cookie("token", token);

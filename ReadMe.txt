@@ -149,7 +149,7 @@ npm run both
    - Track payment status and details
 
 ### Video of application
-https://youtu.be/A3Qa2oGa7_8
+https://youtu.be/J_VFB_4mN6Q
 
 ##  API Documentation
 

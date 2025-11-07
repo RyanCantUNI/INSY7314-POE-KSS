@@ -206,7 +206,10 @@ user.get("/getuser", async (_, res) => {
 
 //delete account 
 //find user account by id then delete it
-user.delete("deletuser:id",async (req, res) => {
+user.delete("deletuser/id",[
+    //sanitation of inputs
+    body("id").notEmpty()
+],async (req, res) => {
     try {
         const userId = req.params.id;
         const _admin = await Admin.findByIdAndDelete(userId);

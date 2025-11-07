@@ -132,7 +132,9 @@ npm run both
 
 ### Using the Application
 
-1. **Manager Login**
+1. **Admin Login**
+   - Default admin login: email: APDSadmin@gmail.com
+                          password: password123
    - Log in to access the payment system
    - Managers can create, edit, and delete users
 

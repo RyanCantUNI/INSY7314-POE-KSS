@@ -30,7 +30,7 @@ jobs:
           name: Install frontend dependencies
           command: |
             cd frontend
-            npm ci
+            npm install --legacy-peer-deps
       - run:
           name: Run frontend tests
           command: |
@@ -65,7 +65,7 @@ jobs:
           name: Install frontend dependencies
           command: |
             cd frontend
-            npm ci
+            npm install --legacy-peer-deps
       - run:
           name: Lint frontend (optional)
           command: |

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,8 +11,7 @@ function Dashboard() {
     useEffect(() => {
         const token = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-        axios.get("https://localhost:443/getuser")
+        axios.get("https://localhost:443/getuser"+ loginID)
             .then((response) => {
                 setCustomers(response.data.customers);
                 setAdmins(response.data.admins);

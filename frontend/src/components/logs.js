@@ -5,15 +5,12 @@ import { useNavigate } from "react-router-dom";
 const PaymentList = () => {
     const [payments, setPayments] = useState([]);
     const navigate = useNavigate();
-    Array.isArray(payments);
+    console.log(Array.isArray(payments));
 
     //Get blogs
     useEffect(() => {
         //get current user 
         const loginID = localStorage.getItem("userID");
-
-        
-
         //get token
         const token = localStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

@@ -6,11 +6,11 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    idNumber: '',
-    accountNumber: '',
-    password: '',
+    fullName: null,
+    email: null,
+    nationalId: null,
+    accountNumber: null,
+    password: null,
     role: 'user' // default role
   });
   const adminFields = ['fullName', 'email', 'password'];
@@ -29,12 +29,14 @@ function Register() {
     const endpoint =
       formData.role === 'admin'
         ? 'https://localhost:443/register/admin'
-        : 'https://localhost:443/register/user';
+        : 'https://localhost:443/register/customer';
 
     try {
+      console.log('Submitting registration data to:', endpoint);
+      console.log('Form Data:', formData);
       await axios.post(endpoint, formData);
       alert(`${formData.role === 'admin' ? 'Admin' : 'User'} registered successfully!`);
-      navigate('/login');
+      navigate('/dashboard');
     } catch (error) {
       if (process.env.NODE_ENV === 'development') {
         console.error('Registration error:', error);
@@ -194,50 +196,49 @@ function Register() {
                 </div>
               ))
           }
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }} onSubmit={handleSubmit}>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                backgroundColor: '#2575fc',
+                color: '#fff',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                width: '48%',
+                opacity: loading ? 0.7 : 1,
+                transition: 'background-color 0.3s ease, transform 0.2s ease'
+              }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
+            >
+              {loading ? 'Registering...' : 'Register'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard')}
+              style={{
+                backgroundColor: '#f0f0f0',
+                color: '#333',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '600',
+                width: '48%',
+                transition: 'background-color 0.3s ease, transform 0.2s ease'
+              }}
+              onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
+              onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
+            >
+              Back to Dashboard
+            </button>
+          </div>
         </form>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '25px' }}>
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              backgroundColor: '#2575fc',
-              color: '#fff',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              width: '48%',
-              opacity: loading ? 0.7 : 1,
-              transition: 'background-color 0.3s ease, transform 0.2s ease'
-            }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = '#1a5fd1')}
-            onMouseOut={(e) => (e.target.style.backgroundColor = '#2575fc')}
-          >
-            {loading ? 'Registering...' : 'Register'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate('/login')}
-            style={{
-              backgroundColor: '#f0f0f0',
-              color: '#333',
-              padding: '10px 20px',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              width: '48%',
-              transition: 'background-color 0.3s ease, transform 0.2s ease'
-            }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = '#e0e0e0')}
-            onMouseOut={(e) => (e.target.style.backgroundColor = '#f0f0f0')}
-          >
-            Back to Login
-          </button>
-        </div>
       </div>
     </div>
   );

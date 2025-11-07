@@ -28,20 +28,24 @@ const AdminLogs = () => {
   }, [navigate]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #232526, #414345)",
-        padding: "40px",
-        boxSizing: "border-box",
-        fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
-        overflowY: "auto",
-      }}
-    >
+    <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+            backgroundColor: '#f5f5f5',
+            padding: '40px',
+            borderRadius: '15px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            background: 'linear-gradient(135deg, #6a11cb, #2575fc)',
+            width: '100%',
+            boxSizing: 'border-box',
+            margin: '0 0 0 0',
+            overflow: 'auto',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+            textAlign: 'center'
+        }}>
       <h1 style={{ color: "#FFFFFF", marginTop: "40px", marginBottom: "20px" }}>
         Admin Payment Logs
       </h1>

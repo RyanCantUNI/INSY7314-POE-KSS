@@ -74,10 +74,10 @@ login.post("/login", [
            
            //generate token
            const token = generateAdminsToken(_id, _email, "admin");
+           console.log("Generated Admin Token:", token);
 
            //set cookie
-           res.cookie("token", token, { httpOnly: true });
-           
+           res.cookie("token", token)
             //return user role
             res.status(200).json({ role: "admin" });
           
@@ -93,13 +93,17 @@ login.post("/login", [
           //get user id
           let _id = customer.id
           let _email = customer.email
+          console.log(_id);
+          console.log(_email);
           //generate token
-          const token = userToken(_id, _email, "customer");
+          const token = userToken(_id, _email);
+          console.log("Generated User Token:", token.id);
+
           //set cookie
-          res.cookie("token", token, { httpOnly: true });
+          res.cookie("token", token);
 
           //return user role
-            res.status(200).json({ role: "customer" });
+            res.status(200).json({ role: "customer" ,UUID: _id});
         } else {
             res.status(401).json({ message: "Invalid credentials" });
         }

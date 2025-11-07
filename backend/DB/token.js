@@ -11,7 +11,11 @@ export const userToken = (id ,email)=>
     id for current logged in user
     email for verfication perposes
     */
-   return jwt.sign({ id, email }, "user token", { expiresIn: '2h' });;
+   //console.log("Generating User Token with ID:", id, "and Email:", email);
+   const signedToken = jwt.sign({ id, email }, "user token", { expiresIn: '2h' });
+   //console.log("Signed Token:", signedToken);
+   //console.log("token id:", signedToken._id); 
+   return signedToken;
 }
 
 

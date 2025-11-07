@@ -8,17 +8,13 @@ const AdminLogs = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found — redirecting to login.");
-      navigate("/login");
-      return;
-    }
+    
 
     // Set token for all axios requests
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     axios
-      .get("https://localhost:443/api/admin/payments")
+      .get("https://localhost:443/payments")
       .then((response) => {
         setPayments(response.data);
       })

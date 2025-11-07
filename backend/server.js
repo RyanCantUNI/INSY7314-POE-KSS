@@ -51,8 +51,9 @@ app.use(helmet());
 
 // HSTS middleware
 app.use((req, res, next) => {
-  // Only set HSTS header for secure connections
+  
   if (req.secure) {
+    //taken from here: https://www.stackhawk.com/blog/node-js-http-strict-transport-security-guide-what-it-is-and-how-to-enable-it/#mitm-scenario
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   }
   next();

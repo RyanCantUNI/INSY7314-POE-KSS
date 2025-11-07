@@ -6,6 +6,7 @@ import Register from './components/register';
 import Payment from './components/payment';
 import Logs from './components/logs';
 import Dashboard from './components/dashboard';
+import AdminLogs from './components/adminlogs';
 
 //  Updated Landing (Index) Page
 function Index() {
@@ -96,6 +97,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/logs" element={<Logs />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/adminlogs" element={<AdminLogs />} />
       </Routes>
     </Router>
   );

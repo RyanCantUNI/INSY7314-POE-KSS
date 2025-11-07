@@ -68,6 +68,20 @@ function Dashboard() {
                 >
                     View Payment Logs
                 </button>
+
+                <button
+                    onClick={() => navigate("/register")}
+                    style={{
+                        padding: '10px 20px',
+                        backgroundColor: '#3498DB',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer'
+                    }}
+                >
+                    Register Customer
+                </button>
             </div>
 
             <br />
